@@ -1,0 +1,9 @@
+# Sitio estático (sin build). Netlify publica la raíz del repo tal cual.
+[build]
+  publish = "."
+
+# Cache larga para imágenes: los navegadores no vuelven a descargarlas.
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
