@@ -94,8 +94,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111;color:#eee;min-
 .hc-phone small{font-size:10px;color:#777;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px}
 .hc-wa{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:#25d366;color:#fff;text-decoration:none;padding:9px 16px;border-radius:8px;font-weight:700;font-size:14px;transition:background .15s}
 .hc-wa:hover{background:#1ebe5d}
-@media(max-width:640px){.header{padding:14px 18px;gap:16px}.header-logo{height:84px}.header-main h1{font-size:21px}.header-contact{min-width:0;width:100%;flex-direction:row}.hc-phone{flex:1}.hc-wa{flex:1}}
-.controls{background:#181818;padding:12px 24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-bottom:1px solid #2a2a2a;position:sticky;top:0;z-index:50}
+.controls{background:#181818;padding:12px 24px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid #2a2a2a;position:sticky;top:0;z-index:50}
+.controls-top{display:flex;gap:10px;align-items:center}
+.filter-scroll{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .search-wrap{position:relative;flex:1;min-width:180px}
 .search-wrap input{width:100%;background:#222;border:1px solid #333;border-radius:6px;padding:8px 12px 8px 34px;color:#eee;font-size:14px;outline:none}
 .search-wrap input:focus{border-color:#cc2222}
@@ -120,6 +121,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111;color:#eee;min-
 .gallery-dot.active{background:#cc2222}
 .gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.55);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.15s}
 .gallery:hover .gallery-arrow{opacity:1}
+@media(pointer:coarse){.gallery-arrow{opacity:.9}}
 .gallery-prev{left:8px}
 .gallery-next{right:8px}
 .card-body{padding:14px 16px}
@@ -191,6 +193,45 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111;color:#eee;min-
 .contact-form button{background:#cc2222;color:#fff;border:none;border-radius:8px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;transition:background 0.15s;margin-top:4px}
 .contact-form button:hover{background:#e23333}
 .contact-form .hp{position:absolute;left:-9999px}
+/* Botones flotantes (llamar / WhatsApp) */
+.fab{position:fixed;right:24px;z-index:100;color:#fff;text-decoration:none;border-radius:50px;padding:13px 20px;font-family:'Segoe UI',sans-serif;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;transition:transform .15s}
+.fab:hover{transform:scale(1.06)}
+.fab svg{flex-shrink:0}
+.fab-call{bottom:84px;background:#cc2222;box-shadow:0 4px 18px rgba(204,34,34,.35)}
+.fab-wa{bottom:24px;background:#25d366;box-shadow:0 4px 18px rgba(37,211,102,.35)}
+/* ===== Ajustes móviles (al final para ganar en orden de cascada) ===== */
+@media(max-width:640px){
+  /* Encabezado compacto */
+  .header{padding:10px 14px;gap:10px}
+  .header-logo{height:56px}
+  .header-main{min-width:150px}
+  .header-main h1{font-size:19px}
+  .header-tag{font-size:11px;margin-top:4px}
+  .header-chips{gap:5px;margin-top:6px}
+  .header-chips span{font-size:10px;padding:2px 8px}
+  .header-contact{min-width:0;width:100%;flex-direction:row}
+  .hc-phone{flex:1}.hc-wa{flex:1;padding:10px 12px}
+  /* Barra de confianza compacta */
+  .trust-bar{padding:7px 12px;gap:5px 14px;font-size:11.5px}
+  .trust-item{font-size:11.5px;gap:5px}
+  .trust-item .ti-ico{font-size:14px}
+  /* Filtros en una sola fila deslizable */
+  .controls{padding:8px 12px;gap:8px}
+  .controls-top{gap:8px}
+  .filter-scroll{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -12px;padding:1px 12px 3px}
+  .filter-scroll::-webkit-scrollbar{display:none}
+  .filter-btn{flex-shrink:0;padding:8px 14px;font-size:13px}
+  .counter{font-size:11px}
+  /* Rejilla más apretada e imágenes más bajas */
+  .grid{padding:14px 12px;gap:14px}
+  .gallery,.gallery-placeholder{aspect-ratio:4/3}
+  /* Botones flotantes compactos (solo ícono) */
+  .fab{right:14px;padding:13px;border-radius:50%}
+  .fab .fab-label{display:none}
+  .fab svg{width:24px;height:24px}
+  .fab-call{bottom:82px}
+  .fab-wa{bottom:18px}
+}
 </style>
 </head>
 <body>
@@ -220,18 +261,22 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111;color:#eee;min-
   <span class="trust-item"><span class="ti-ico">💬</span>Atención inmediata</span>
 </div>
 <div class="controls">
-  <div class="search-wrap">
-    <span class="search-icon">🔍</span>
-    <input type="text" placeholder="Buscar equipo..." id="searchInput" oninput="filterProducts()">
+  <div class="controls-top">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Buscar equipo..." id="searchInput" oninput="filterProducts()">
+    </div>
+    <span class="counter" id="counter">23 equipos</span>
   </div>
-  <button class="filter-btn active" onclick="setCategory(&#39;Todos&#39;)">Todos</button>
-  <button class="filter-btn" onclick="setCategory(&#39;Generadores&#39;)">Generadores</button>
-  <button class="filter-btn" onclick="setCategory(&#39;Montacargas&#39;)">Montacargas</button>
-  <button class="filter-btn" onclick="setCategory(&#39;Maquinaria Pesada&#39;)">Maquinaria</button>
-  <button class="filter-btn" onclick="setCategory(&#39;Aditamentos&#39;)">Aditamentos</button>
-  <button class="filter-btn" onclick="setCategory(&#39;Iluminación&#39;)">Iluminación</button>
-  <button class="filter-btn avail-toggle" id="availToggle" onclick="toggleAvailable()">✓ Solo disponibles</button>
-  <span class="counter" id="counter">23 equipos</span>
+  <div class="filter-scroll">
+    <button class="filter-btn active" onclick="setCategory(&#39;Todos&#39;)">Todos</button>
+    <button class="filter-btn" onclick="setCategory(&#39;Generadores&#39;)">Generadores</button>
+    <button class="filter-btn" onclick="setCategory(&#39;Montacargas&#39;)">Montacargas</button>
+    <button class="filter-btn" onclick="setCategory(&#39;Maquinaria Pesada&#39;)">Maquinaria</button>
+    <button class="filter-btn" onclick="setCategory(&#39;Aditamentos&#39;)">Aditamentos</button>
+    <button class="filter-btn" onclick="setCategory(&#39;Iluminación&#39;)">Iluminación</button>
+    <button class="filter-btn avail-toggle" id="availToggle" onclick="toggleAvailable()">✓ Solo disponibles</button>
+  </div>
 </div>
 <div class="grid" id="productGrid"></div>
 <div class="modal-overlay" id="modal" onclick="closeModal()">
@@ -241,12 +286,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111;color:#eee;min-
   <button class="modal-arrow modal-next" onclick="event.stopPropagation();modalMove(1)">&#8250;</button>
   <div class="modal-counter" id="modalCounter"></div>
 </div>
-<a href="tel:+524422004002" style="position:fixed;bottom:84px;right:24px;z-index:100;background:#cc2222;color:#fff;text-decoration:none;border-radius:50px;padding:13px 20px;font-family:&#39;Segoe UI&#39;,sans-serif;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 4px 18px rgba(204,34,34,0.35);transition:transform 0.15s" onmouseover="this.style.transform=&#39;scale(1.06)&#39;" onmouseout="this.style.transform=&#39;scale(1)&#39;">
+<a class="fab fab-call" href="tel:+524422004002" aria-label="Llamar por teléfono">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path></svg>
-Llamar</a>
-<a href="https://wa.me/524422004002" target="_blank" style="position:fixed;bottom:24px;right:24px;z-index:100;background:#25d366;color:#fff;text-decoration:none;border-radius:50px;padding:13px 20px;font-family:&#39;Segoe UI&#39;,sans-serif;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 4px 18px rgba(37,211,102,0.35);transition:transform 0.15s" onmouseover="this.style.transform=&#39;scale(1.06)&#39;" onmouseout="this.style.transform=&#39;scale(1)&#39;">
+<span class="fab-label">Llamar</span></a>
+<a class="fab fab-wa" href="https://wa.me/524422004002" target="_blank" rel="noopener" aria-label="Cotizar por WhatsApp">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.527 5.845L.057 23.882l6.22-1.633A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.368l-.36-.214-3.716.976.993-3.622-.234-.373A9.818 9.818 0 1112 21.818z"></path></svg>
-Cotizar por WhatsApp</a>
+<span class="fab-label">Cotizar por WhatsApp</span></a>
 <script>
 
 const IMG50=["img/gen50_0.webp", "img/gen50_1.webp", "img/gen50_2.webp"];
