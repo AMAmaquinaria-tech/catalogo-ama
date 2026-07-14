@@ -143,6 +143,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111;color:#eee;min-
 .badge-avail.nd{background:#3a1a1a;color:#e66}
 .card.nd .gallery img,.card.nd .gallery-placeholder{filter:grayscale(0.7);opacity:0.65}
 .card.nd .card-name{color:#999}
+.grid .section-sep{grid-column:1/-1;display:flex;align-items:center;gap:14px;margin:30px 2px 4px;color:#9a9a9a;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px}
+.grid .section-sep::before,.grid .section-sep::after{content:"";flex:1;height:1px;background:#333}
 .badge-qty{font-size:11px;color:#555}
 .empty{grid-column:1/-1;text-align:center;padding:60px 0;color:#444;font-size:15px}
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:200;align-items:center;justify-content:center}
@@ -428,16 +430,22 @@ function toggleAvailable(){
 function filterProducts(){currentSearch=document.getElementById('searchInput').value.toLowerCase();renderProducts();}
 function renderProducts(){
   const grid=document.getElementById('productGrid');
-  const filtered=PRODUCTS.filter(p=>{
+  const base=PRODUCTS.filter(p=>{
     const mc=currentCategory==='Todos'||p.cat===currentCategory;
     const ms=!currentSearch||p.name.toLowerCase().includes(currentSearch)||p.cat.toLowerCase().includes(currentSearch)||
       p.specs.some(s=>s[1].toLowerCase().includes(currentSearch))||
       (p.includes&&p.includes.some(i=>i.toLowerCase().includes(currentSearch)));
-    const md=!onlyAvailable||p.disp!==false;
-    return mc&&ms&&md;
+    return mc&&ms;
   });
-  document.getElementById('counter').textContent=filtered.length+' equipo'+(filtered.length!==1?'s':'');
-  grid.innerHTML=filtered.length?filtered.map(p=>cardHTML(p)).join(''):'<div class="empty">No se encontraron equipos</div>';
+  const disp=base.filter(p=>p.disp!==false);   // disponibles
+  const nd=base.filter(p=>p.disp===false);     // no disponibles
+  document.getElementById('counter').textContent=base.length+' equipo'+(base.length!==1?'s':'');
+  let html=disp.map(p=>cardHTML(p)).join('');
+  if(!onlyAvailable && nd.length){
+    html+='<div class="section-sep"><span>No disponibles por ahora</span></div>';
+    html+=nd.map(p=>cardHTML(p)).join('');
+  }
+  grid.innerHTML=html||'<div class="empty">No se encontraron equipos</div>';
   addSwipeListeners();
 }
 function addSwipeListeners(){
