@@ -481,7 +481,8 @@ function renderProducts(){
       (p.includes&&p.includes.some(i=>i.toLowerCase().includes(currentSearch)));
     return mc&&ms;
   });
-  const disp=base.filter(p=>p.disp!==false);   // disponibles
+  const primero=p=>/rodillo/i.test(p.name)?0:1;  // los rodillos se muestran primero
+  const disp=base.filter(p=>p.disp!==false).sort((a,b)=>primero(a)-primero(b));   // disponibles
   const nd=base.filter(p=>p.disp===false);     // no disponibles
   document.getElementById('counter').textContent=base.length+' equipo'+(base.length!==1?'s':'');
   let html=disp.map(p=>cardHTML(p)).join('');
