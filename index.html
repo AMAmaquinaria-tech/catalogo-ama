@@ -458,6 +458,7 @@ const PRODUCTS=[
 
 const ICONS={'Generadores':'⚡','Montacargas':'🏗️','Maquinaria Pesada':'🚜','Aditamentos':'🔨','Iluminación':'💡','Paquetes':'📦'};
 let currentCategory='Todos',currentSearch='',onlyAvailable=false;
+const OCULTAR_NO_DISPONIBLES=true; // true = los equipos con disp:false no se muestran en la página
 function setCategory(cat){
   currentCategory=cat;
   document.querySelectorAll('.filter-btn').forEach(b=>{
@@ -480,7 +481,7 @@ function renderProducts(){
     const ms=!currentSearch||p.name.toLowerCase().includes(currentSearch)||p.cat.toLowerCase().includes(currentSearch)||
       p.specs.some(s=>s[1].toLowerCase().includes(currentSearch))||
       (p.includes&&p.includes.some(i=>i.toLowerCase().includes(currentSearch)));
-    return mc&&ms;
+    return mc&&ms&&!(OCULTAR_NO_DISPONIBLES&&p.disp===false);
   });
   const primero=p=>/rodillo/i.test(p.name)?0:1;  // los rodillos se muestran primero
   const disp=base.filter(p=>p.disp!==false).sort((a,b)=>primero(a)-primero(b));   // disponibles
@@ -575,6 +576,7 @@ document.addEventListener('keydown',e=>{
   m.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
   m.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)modalMove(dx<0?1:-1);},{passive:true});
 })();
+if(OCULTAR_NO_DISPONIBLES)document.getElementById('availToggle').style.display='none';
 renderProducts();
 </script>
 
