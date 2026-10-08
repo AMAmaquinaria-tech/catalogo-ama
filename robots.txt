@@ -33,4 +33,4 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-Sitemap: https://ama-catalogo.netlify.app/sitemap.xml
+Sitemap: https://amamaquinaria.com/sitemap.xml
