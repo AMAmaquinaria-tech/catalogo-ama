@@ -183,6 +183,63 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111;color:#eee;min-
 .btn-cotizar:hover{background:#1ebe5d}
 .btn-share{display:inline-flex;align-items:center;justify-content:center;background:#222;border:1px solid #333;color:#bbb;border-radius:50%;width:32px;height:32px;cursor:pointer;transition:all 0.15s;flex-shrink:0}
 .btn-share:hover{border-color:#cc2222;color:#fff}
+/* ===== Tarjetas compactas (foto + título) y ficha en ventana ===== */
+.grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.card{cursor:pointer;display:flex;flex-direction:column}
+.card:focus-visible{outline:2px solid #cc2222;outline-offset:2px}
+.thumb{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:#161616}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+.card:hover .thumb img{transform:scale(1.04)}
+.thumb-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:52px;color:#2a2a2a}
+.thumb-count{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.62);color:#fff;font-size:11px;font-weight:600;padding:3px 8px;border-radius:12px}
+.thumb-nd{position:absolute;left:8px;top:8px;background:#3a1a1a;color:#e66;font-size:11px;font-weight:600;padding:3px 9px;border-radius:12px}
+.card.nd .thumb img,.card.nd .thumb-ph{filter:grayscale(.7);opacity:.65}
+.card-title{padding:10px 12px 13px}
+.card-title .card-cat{margin-bottom:4px}
+.card-title .card-name{font-size:15px;margin:0;line-height:1.25;min-height:2.5em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.det-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:150;align-items:center;justify-content:center;padding:2vh 2vw}
+.det-overlay.open{display:flex}
+.det-panel{position:relative;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;width:100%;max-width:1120px;max-height:96vh;overflow:auto;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+.det-close{position:absolute;top:10px;right:10px;z-index:5;background:rgba(0,0,0,.6);border:none;color:#fff;width:38px;height:38px;border-radius:50%;font-size:20px;cursor:pointer}
+.det-close:hover{background:#cc2222}
+.det-gal{background:#0e0e0e;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.det-main{position:relative;height:min(74vh,660px);background:#111;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.det-main img{width:100%;height:100%;object-fit:contain;cursor:zoom-in}
+.det-main .thumb-ph{font-size:80px}
+.det-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.55);border:none;color:#fff;width:42px;height:42px;border-radius:50%;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.det-arrow:hover{background:rgba(204,34,34,.9)}
+.det-prev{left:10px}.det-next{right:10px}
+.det-count{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:#fff;font-size:12px;padding:3px 11px;border-radius:12px}
+.det-thumbs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.det-thumbs img{width:68px;height:68px;object-fit:cover;border-radius:6px;cursor:pointer;opacity:.55;border:2px solid transparent;flex-shrink:0}
+.det-thumbs img.active{opacity:1;border-color:#cc2222}
+.det-info{padding:24px 24px 20px;display:flex;flex-direction:column;min-width:0}
+.det-name{font-size:23px;font-weight:800;color:#f2f2f2;line-height:1.2;margin:2px 40px 10px 0}
+.det-info .badge-avail{align-self:flex-start;margin-bottom:12px}
+.det-specs{list-style:none;margin-bottom:12px}
+.det-specs li{font-size:13.5px;color:#999;padding:7px 0;border-bottom:1px solid #262626;display:flex;justify-content:space-between;gap:14px}
+.det-specs li span:first-child{flex-shrink:0}
+.det-specs li span:last-child{color:#ddd;font-weight:500;text-align:right}
+.det-actions{display:flex;gap:10px;margin-top:auto;padding-top:12px;position:sticky;bottom:0;background:#1a1a1a}
+.det-wa{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:#25d366;color:#fff;text-decoration:none;font-size:16px;font-weight:700;padding:14px 16px;border-radius:30px}
+.det-wa:hover{background:#1ebe5d}
+.det-share{display:flex;align-items:center;justify-content:center;width:50px;flex-shrink:0;background:#222;border:1px solid #333;color:#bbb;border-radius:50%;cursor:pointer}
+.det-share:hover{border-color:#cc2222;color:#fff}
+.det-ref{font-size:11px;color:#666;margin-top:10px;text-align:center}
+@media(max-width:760px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px 10px}
+  .card-title{padding:8px 9px 10px}
+  .card-title .card-name{font-size:13px}
+  .det-overlay{padding:0}
+  .det-panel{grid-template-columns:1fr;max-height:100%;height:100%;border-radius:0;border:none;display:block}
+  .det-gal{padding:0;gap:6px}
+  .det-main{border-radius:0;height:auto;aspect-ratio:1/1;max-height:62vh}
+  .det-thumbs{padding:0 8px 4px}
+  .det-thumbs img{width:56px;height:56px}
+  .det-info{padding:16px 16px 14px}
+  .det-name{font-size:20px;margin-right:0}
+  .det-actions{padding-bottom:max(12px,env(safe-area-inset-bottom))}
+}
 .seo-section{background:#141414;border-top:1px solid #222;padding:40px 24px}
 .seo-section h2{font-size:20px;font-weight:700;color:#cc2222;margin-bottom:12px}
 .seo-section h3{font-size:15px;font-weight:600;color:#eee;margin:18px 0 6px}
@@ -307,6 +364,32 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111;color:#eee;min-
   <button class="modal-arrow modal-next" onclick="event.stopPropagation();modalMove(1)">&#8250;</button>
   <div class="modal-counter" id="modalCounter"></div>
 </div>
+<div class="det-overlay" id="det" onclick="if(event.target===this)closeDetail()">
+  <div class="det-panel" role="dialog" aria-modal="true" aria-labelledby="detName">
+    <button class="det-close" onclick="closeDetail()" aria-label="Cerrar">✕</button>
+    <div class="det-gal">
+      <div class="det-main" id="detMain">
+        <img id="detImg" src="" alt="" onclick="openModal(detP.id,detIdx)">
+        <button class="det-arrow det-prev" onclick="detMove(-1)" aria-label="Foto anterior">&#8249;</button>
+        <button class="det-arrow det-next" onclick="detMove(1)" aria-label="Foto siguiente">&#8250;</button>
+        <div class="det-count" id="detCount"></div>
+      </div>
+      <div class="det-thumbs" id="detThumbs"></div>
+    </div>
+    <div class="det-info">
+      <div class="card-cat" id="detCat"></div>
+      <h2 class="det-name" id="detName"></h2>
+      <span class="badge-avail" id="detAvail"></span>
+      <ul class="det-specs" id="detSpecs"></ul>
+      <div id="detIncludes"></div>
+      <div class="det-actions">
+        <a class="det-wa" id="detWa" href="#" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.527 5.845L.057 23.882l6.22-1.633A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.368l-.36-.214-3.716.976.993-3.622-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>Pedir informes por WhatsApp</a>
+        <button class="det-share" onclick="shareProduct(detP)" title="Compartir" aria-label="Compartir"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"></path></svg></button>
+      </div>
+      <div class="det-ref" id="detRef"></div>
+    </div>
+  </div>
+</div>
 <a class="fab fab-call" href="tel:+524422004002" aria-label="Llamar por teléfono">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path></svg>
 <span class="fab-label">Llamar</span></a>
@@ -421,7 +504,7 @@ const PRODUCTS=[
   {id:27,cat:'Montacargas',name:'Montacargas Todo Terreno Terramax ZY-35A 4x4',qty:1,images:IMG_TERRAMAX,
     specs:[['Marca','Terramax'],['Modelo','ZY-35A'],['No. Serie','JZB202606007'],['Tipo','Montacargas todo terreno (rough terrain)'],['Capacidad','3,500 kg (7,700 lb)'],['Alt. máx. elevación','4,547 mm (179 in)'],['Alt. mástil replegado','2,311 mm (91 in)'],['Mástil','3 etapas con elevación libre completa'],['Motor','4 cilindros diésel'],['Combustible','Diésel'],['Potencia','56.3 HP (45 kW)'],['Batería','100 Ah · 24 V'],['Horquillas','1,219 mm (48 in)'],['Desplazamiento lateral','Sí'],['Tracción','4x4'],['Llantas','23.5 / 70 - 16'],['Cabina','Cerrada'],['Dirección','Hidráulica'],['Arranque','Eléctrico'],['Dimensiones (L×An×Al)','4,850 × 1,850 × 2,530 mm'],['Año','2026'],['Condición','Nuevo']]},
   {id:44,cat:'Montacargas',name:'Montacargas Eléctrico STARVOX CPD-20',qty:1,images:[],
-    specs:[['Marca','STARVOX'],['Modelo','CPD-20'],['No. Serie','DLK2026-6892'],['Tipo','Montacargas eléctrico'],['Capacidad','2,000 kg (4,400 lb)'],['Alt. máx. elevación','3,000 mm'],['Mástil','Dúplex 2 etapas'],['Motor','Eléctrico'],['Combustible','Eléctrico'],['Potencia','4.0 kW'],['Batería','60 V'],['Horquillas','1,220 mm (48 in)'],['Desplazamiento lateral','No'],['Tracción','Eléctrica delantera'],['Llantas','6.60 – 10'],['Cabina','Abierta'],['Dirección','Hidráulica'],['Arranque','Eléctrico'],['Peso operativo','2,500 kg'],['Dimensiones (L×An×Al)','3,800 × 1,200 × 2,100 mm'],['Año','2026'],['Condición','Nuevo']]},
+    specs:[['Marca','STARVOX'],['Modelo','CPD-20'],['No. Serie','DLK2026-6892'],['Tipo','Montacargas eléctrico contrapesado'],['Capacidad','2,000 kg (4,400 lb)'],['Alt. máx. elevación','2,972 mm (117 in)'],['Alt. mástil replegado','2,108 mm (83 in)'],['Mástil','2 etapas (dúplex)'],['Motor','Eléctrico'],['Combustible','Eléctrico'],['Potencia','4.0 kW'],['Batería','60 V'],['Horquillas','1,220 mm (48 in)'],['Desplazamiento lateral','No'],['Tracción','Eléctrica delantera'],['Llantas','6.60 – 10'],['Cabina','Abierta'],['Dirección','Hidráulica'],['Arranque','Eléctrico'],['Peso operativo','2,500 kg'],['Dimensiones (L×An×Al)','3,800 × 1,200 × 2,100 mm'],['Año','2026'],['Condición','Nuevo']]},
   {id:10,cat:'Maquinaria Pesada',name:'Cargador Frontal Heli HL933',qty:1,disp:false,images:IMG_HELI,
     specs:[['Modelo','HL933 II-CU'],['Motor','Cummins 6BT5.9-C130'],['Potencia','97 kW (130 HP)'],['Carga nominal','3,500 kg'],['Vel. máx.','38 km/h'],['Peso operativo','10,600 kg'],['Dimensiones','7,020 × 2,500 × 3,210 mm'],['Año','2021'],['Condición','Seminuevo']]},
   {id:11,cat:'Maquinaria Pesada',name:'Minicargador SDLOOL SL323W',qty:1,images:IMG_MC,
@@ -437,7 +520,7 @@ const PRODUCTS=[
   {id:24,cat:'Maquinaria Pesada',name:'Minicargador SDLOOL SL530T sobre Orugas',qty:1,images:IMG_MINI580,
     specs:[['Marca','SDLOOL'],['Modelo','SL530T'],['No. Serie','530TRT2604501'],['Tipo','Minicargador compacto sobre orugas'],['Peso operativo','~1,000 kg'],['Motor','2 cilindros gasolina'],['Potencia','23 HP'],['Carga nominal','450 kg'],['Altura de elevación','2,000 mm'],['Acople rápido','Manual'],['Hidráulico auxiliar','Sí'],['Orugas','Orugas de caucho'],['Control','Joystick dual'],['Ruido','93 dB'],['Implemento','Cucharón'],['Dimensiones (L×An×Al)','2,745 × 1,050 × 1,630 mm'],['Año','2026'],['Condición','Nuevo']]},
   {id:41,cat:'Maquinaria Pesada',name:'Minicargador SDLOOL SSL1300 sobre Orugas',qty:2,images:[],
-    specs:[['Marca','SDLOOL'],['Modelo','SSL1300'],['No. Serie','57243'],['Tipo','Minicargador compacto sobre orugas'],['Motor','Yanmar diésel 3 cilindros'],['Potencia','27 HP (18.5 kW)'],['Altura de elevación','1,800 mm'],['Cucharón','1,100 mm (43.3 in)'],['Acople rápido','Manual'],['Hidráulico auxiliar','Sí'],['Orugas','Hule'],['Control','Joystick'],['Ruido','95 dB'],['Aditamentos','Garras para troncos o chatarra, ahoyadores o barretas, martillos hidráulicos y Zanjadoras'],['Dimensiones (L×An×Al)','2,500 × 1,100 × 1,700 mm'],['Unidades','2'],['Año','2026'],['Condición','Nuevo']]},
+    specs:[['Marca','SDLOOL'],['Modelo','SSL1300'],['No. Serie','57243'],['Tipo','Minicargador compacto sobre orugas'],['Motor','Yanmar diésel 3 cilindros'],['Potencia','27 HP (18.5 kW)'],['Altura de elevación','1,800 mm'],['Cucharón','991 mm (39 in)'],['Acople rápido','Manual'],['Hidráulico auxiliar','Sí'],['Orugas','Hule 178 mm (7 in)'],['Control','Joystick'],['Ruido','95 dB'],['Aditamentos compatibles','Garras para troncos o chatarra, ahoyadores, martillos hidráulicos y zanjadoras'],['Certificación','US EPA 2026'],['Dimensiones (L×An×Al)','2,500 × 1,100 × 1,700 mm'],['Unidades','2'],['Año','2026'],['Condición','Nuevo']]},
 
   {id:13,cat:'Maquinaria Pesada',name:'Rodillo Compactador Furd FYL-890',qty:1,disp:false,images:IMG_FURD890,
     specs:[['Modelo','FYL-890'],['Tipo','Rodillo vibratorio tándem'],['Motor','Diésel KOOP monocilíndrico'],['Potencia','11.5 HP'],['Peso operativo','1,000 kg'],['Ancho de compactación','800 mm'],['Diámetro de tambor','540 mm'],['Velocidad','0 – 5 km/h'],['Fuerza de excitación','25 kN'],['Cap. de ascenso','30%'],['Transmisión','Transmisión hidráulica'],['Arranque','Eléctrico'],['Condición','Nuevo']]},
@@ -466,7 +549,7 @@ const PRODUCTS=[
   {id:37,cat:'Maquinaria Pesada',name:'Miniexcavadora Vicsec 18',qty:1,images:IMG_VC18,
     specs:[['Marca','Vicsec'],['Modelo','Vicsec 18'],['No. Serie','16YP2606506'],['Tipo','Miniexcavadora sobre orugas'],['Peso operativo','1,800 kg'],['Motor','Diésel 3 cilindros'],['Potencia','23 HP'],['Cilindrada','0.997 L'],['Certificación','CE'],['Prof. máx. de excavación','1,700 mm (67 in)'],['Radio máx. excavación (suelo)','2,950 mm'],['Altura máx. de excavación','3,050 mm'],['Altura máx. de descarga','2,100 mm'],['Pluma','Oscilante (swing boom)'],['Brazo','864 mm (2 ft 10 in)'],['Cucharón (ancho)','432 mm (17 in)'],['Cap. cucharón','0.020 m³ / 45 kg'],['Pulgar','Manual'],['Hoja topadora','Sí'],['Hidráulico auxiliar','Sí'],['Orugas','178 mm (7 in)'],['Vel. de desplazamiento','1.7 km/h'],['Control','Piloto Hidráulico (joystick)'],['Incluye','Pulgar mecanico (bote cucharón)'],['Opcional (extra)','Lote de accesorios GIYI GYA-8'],['Dimensiones (L×An×Al)','3,150 × 1,100 × 2,350 mm'],['Año','2026'],['Condición','Nuevo']]},
   {id:43,cat:'Maquinaria Pesada',name:'Miniexcavadora Vicsec 13CD',qty:1,images:[],
-    specs:[['Marca','Vicsec'],['Modelo','13CD'],['No. Serie','13CY2608502'],['Tipo','Miniexcavadora sobre orugas'],['Peso operativo','1,000 kg'],['Motor','Diésel'],['Potencia','9.4 HP (7 kW)'],['Cilindrada','0.5 L'],['Certificación','CE 2026'],['Radio máx. excavación (suelo)','2,800 mm'],['Vel. de desplazamiento','1.5 km/h'],['Año','2026'],['Condición','Nuevo']]},
+    specs:[['Marca','Vicsec'],['Modelo','13CD'],['No. Serie','13CY2608502'],['Tipo','Miniexcavadora sobre orugas'],['Peso operativo','1,000 kg'],['Motor','Diésel'],['Potencia','9.4 HP (7 kW)'],['Cilindrada','0.5 L'],['Certificación','CE 2026'],['Radio máx. excavación (suelo)','2,800 mm'],['Brazo','787 mm (2 ft 7 in)'],['Cucharón (ancho)','356 mm (14 in)'],['Pulgar','Manual'],['Hoja topadora','Sí'],['Hidráulico auxiliar','Sí'],['Orugas','Hule 178 mm (7 in)'],['Vel. de desplazamiento','1.5 km/h'],['Cabina','Cerrada'],['Año','2026'],['Condición','Nuevo']]},
   {id:38,cat:'Aditamentos',name:'Zanjadora GIYI D39 para Minicargador',qty:1,images:IMG_D39,
     specs:[['Marca','GIYI'],['Modelo','D39'],['No. Serie','FDKGJ2606502'],['Tipo','Zanjadora (trencher) para minicargador'],['Peso operativo','206 kg'],['Acople rápido','Hidráulica'],['Ruido','80 dB'],['Ancho de zanja','203 mm (8 in)'],['Profundidad máxima de zanjado','990 mm (39 in)'],['Montaje','Minicargador / skid steer'],['Dimensiones (L×An×Al)','1,700 × 670 × 750 mm'],['Año','2026'],['Condición','Nuevo']]},
   {id:39,cat:'Aditamentos',name:'Lote de Accesorios GIYI GYA-8 para Miniexcavadora',qty:2,images:IMG_GYA8,
@@ -524,54 +607,90 @@ function renderProducts(){
     html+=nd.map(p=>cardHTML(p)).join('');
   }
   grid.innerHTML=html||'<div class="empty">No se encontraron equipos</div>';
-  addSwipeListeners();
-}
-function addSwipeListeners(){
-  document.querySelectorAll('.gallery[id]').forEach(g=>{
-    let x0=0;
-    g.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
-    g.addEventListener('touchend',e=>{
-      const dx=e.changedTouches[0].clientX-x0;
-      if(Math.abs(dx)>40){const id=+g.id.replace('gallery-','');moveGallery(id,dx<0?1:-1);}
-    },{passive:true});
-  });
 }
 function cardHTML(p){
-  const hasImgs=p.images&&p.images.length>0;
-  const gallHTML=hasImgs?`<div class="gallery" id="gallery-${p.id}">
-    ${p.images.map((s,i)=>`<img src="${s}" class="${i===0?'active':''}" alt="${p.name} — foto ${i+1}" loading="lazy" decoding="async" onclick="openModal(${p.id},${i})">`).join('')}
-    ${p.images.length>1?`<button class="gallery-arrow gallery-prev" onclick="event.stopPropagation();moveGallery(${p.id},-1)">&#8249;</button>
-    <button class="gallery-arrow gallery-next" onclick="event.stopPropagation();moveGallery(${p.id},1)">&#8250;</button>
-    <div class="gallery-nav">${p.images.map((_,i)=>`<button class="gallery-dot ${i===0?'active':''}" onclick="event.stopPropagation();goToSlide(${p.id},${i})"></button>`).join('')}</div>
-    <div class="swipe-hint">Swipe</div>`:''}
-  </div>`:`<div class="gallery-placeholder">${ICONS[p.cat]||'📦'}</div>`;
-  const incHTML=p.includes?`<div class="includes-list"><div class="includes-title">Incluye</div>${p.includes.map(i=>`<div class="includes-item"><span>${i}</span></div>`).join('')}</div>`:'';
+  const has=p.images&&p.images.length>0;
   const disp=p.disp!==false; // disponible salvo que tenga disp:false
-  return `<div class="card${p.isPaquete?' paquete':''}${disp?'':' nd'}">
-    ${gallHTML}
-    <div class="card-body">
+  const img=has?`<img src="${p.images[0]}" alt="${p.name}" loading="lazy" decoding="async">${p.images.length>1?`<span class="thumb-count">📷 ${p.images.length}</span>`:''}`
+               :`<div class="thumb-ph">${ICONS[p.cat]||'📦'}</div>`;
+  return `<div class="card${p.isPaquete?' paquete':''}${disp?'':' nd'}" role="button" tabindex="0" onclick="openDetail(${p.id})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDetail(${p.id})}">
+    <div class="thumb">${img}${disp?'':'<span class="thumb-nd">No disponible</span>'}</div>
+    <div class="card-title">
       ${p.isPaquete?'<span class="paquete-badge">📦 Paquete</span>':''}
       <div class="card-cat">${p.cat}</div>
-      <div class="card-name">${p.name}</div>
-      <ul class="card-specs">${p.specs.map(s=>`<li><span>${s[0]}</span><span>${s[1]}</span></li>`).join('')}</ul>
-      ${incHTML}
-    </div>
-    <div class="card-footer">
-      <span class="badge-avail${disp?'':' nd'}">${disp?'Disponible':'No disponible'}</span>
-      <a class="btn-cotizar" href="https://wa.me/"+CONTACTO.tel+"?text="+encodeURIComponent("Hola, me interesa el "+p.name+" (Ref. "+p.id+"). ¿Me pueden dar precio y disponibilidad?")+"" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z\"/><path d=\"M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.527 5.845L.057 23.882l6.22-1.633A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.368l-.36-.214-3.716.976.993-3.622-.234-.373A9.818 9.818 0 1112 21.818z\"/></svg> Cotizar</a>
-      <button class="btn-share" onclick="shareProduct(${JSON.stringify(p.name)})" title="Compartir" aria-label="Compartir"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"></path></svg></button>
+      <h3 class="card-name">${p.name}</h3>
     </div>
   </div>`;
 }
-function shareProduct(name){
-  const url='https://amamaquinaria.com/'+(CONTACTO.code?('?v='+CONTACTO.code):'');
-  const text='Mira este equipo de AMA Maquinaria: '+name;
+function waLink(p){
+  return 'https://wa.me/'+CONTACTO.tel+'?text='+encodeURIComponent('Hola, me interesa el '+p.name+' (Ref. '+p.id+'). ¿Me pueden dar precio y disponibilidad?');
+}
+function shareProduct(p){
+  const url='https://amamaquinaria.com/'+(CONTACTO.code?('?v='+CONTACTO.code):'')+'#ref-'+p.id;
+  const text='Mira este equipo de AMA Maquinaria: '+p.name;
   if(navigator.share){navigator.share({title:'AMA Maquinaria',text:text,url:url}).catch(()=>{});}
   else{window.open('https://wa.me/?text='+encodeURIComponent(text+' '+url),'_blank');}
 }
-function getGallery(id){const g=document.getElementById('gallery-'+id);return{imgs:g.querySelectorAll('img'),dots:g.querySelectorAll('.gallery-dot')};}
-function moveGallery(id,dir){const{imgs,dots}=getGallery(id);let cur=[...imgs].findIndex(i=>i.classList.contains('active'));imgs[cur].classList.remove('active');dots[cur].classList.remove('active');cur=(cur+dir+imgs.length)%imgs.length;imgs[cur].classList.add('active');dots[cur].classList.add('active');}
-function goToSlide(id,idx){const{imgs,dots}=getGallery(id);imgs.forEach((img,n)=>{img.classList.toggle('active',n===idx);dots[n].classList.toggle('active',n===idx);});}
+// ===== Ficha del equipo (ventana) =====
+let detP=null,detIdx=0,detPushed=false;
+function openDetail(id,push){
+  const p=PRODUCTS.find(x=>x.id===id); if(!p)return;
+  detP=p; detIdx=0;
+  const disp=p.disp!==false;
+  document.getElementById('detCat').textContent=p.cat;
+  document.getElementById('detName').textContent=p.name;
+  const av=document.getElementById('detAvail'); av.textContent=disp?'Disponible':'No disponible'; av.className='badge-avail'+(disp?'':' nd');
+  document.getElementById('detSpecs').innerHTML=p.specs.map(s=>`<li><span>${s[0]}</span><span>${s[1]}</span></li>`).join('');
+  document.getElementById('detIncludes').innerHTML=p.includes?`<div class="includes-list"><div class="includes-title">Incluye</div>${p.includes.map(i=>`<div class="includes-item"><span>${i}</span></div>`).join('')}</div>`:'';
+  document.getElementById('detWa').href=waLink(p);
+  document.getElementById('detRef').textContent='Ref. '+p.id+' · Envíos a toda la República';
+  document.getElementById('detThumbs').innerHTML=(p.images||[]).length>1?p.images.map((s,i)=>`<img src="${s}" alt="${p.name} — foto ${i+1}" loading="lazy" onclick="detShow(${i})">`).join(''):'';
+  detShow(0);
+  document.getElementById('det').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.querySelector('.det-panel').scrollTop=0;
+  if(push!==false&&location.hash!=='#ref-'+id){history.pushState({det:id},'','#ref-'+id);detPushed=true;}
+}
+function detShow(i){
+  const imgs=detP.images||[], main=document.getElementById('detMain'), im=document.getElementById('detImg');
+  let ph=main.querySelector('.thumb-ph');
+  if(!imgs.length){
+    im.style.display='none';
+    if(!ph){ph=document.createElement('div');ph.className='thumb-ph';main.appendChild(ph);}
+    ph.textContent=ICONS[detP.cat]||'📦';
+  }else{
+    if(ph)ph.remove();
+    detIdx=(i+imgs.length)%imgs.length;
+    im.style.display='';im.src=imgs[detIdx];im.alt=detP.name+' — foto '+(detIdx+1);
+    document.querySelectorAll('#detThumbs img').forEach((t,n)=>{t.classList.toggle('active',n===detIdx);if(n===detIdx)t.scrollIntoView({block:'nearest',inline:'nearest'});});
+  }
+  const multi=imgs.length>1;
+  document.querySelectorAll('.det-arrow').forEach(a=>a.style.display=multi?'flex':'none');
+  const c=document.getElementById('detCount'); c.style.display=multi?'block':'none'; c.textContent=(detIdx+1)+' / '+imgs.length;
+}
+function detMove(d){if(detP&&(detP.images||[]).length>1)detShow(detIdx+d);}
+function closeDetail(fromPop){
+  const el=document.getElementById('det'); if(!el.classList.contains('open'))return;
+  el.classList.remove('open'); document.body.style.overflow='';
+  if(!fromPop&&location.hash.indexOf('#ref-')===0){
+    if(detPushed)history.back(); else history.replaceState(null,'',location.pathname+location.search);
+  }
+  detPushed=false;
+}
+window.addEventListener('popstate',()=>{
+  const m=location.hash.match(/^#ref-(\d+)$/);
+  if(m)openDetail(+m[1],false); else closeDetail(true);
+});
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('modal').classList.contains('open'))return; // el visor de fotos tiene sus propias teclas
+  if(!document.getElementById('det').classList.contains('open'))return;
+  if(e.key==='ArrowLeft')detMove(-1); else if(e.key==='ArrowRight')detMove(1); else if(e.key==='Escape')closeDetail();
+});
+(function(){
+  const m=document.getElementById('detMain');let x0=0;
+  m.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
+  m.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)detMove(dx<0?1:-1);},{passive:true});
+})();
 let modalImages=[],modalIdx=0;
 function openModal(id,idx){
   const p=PRODUCTS.find(x=>x.id===id);
@@ -609,6 +728,7 @@ document.addEventListener('keydown',e=>{
 })();
 if(OCULTAR_NO_DISPONIBLES)document.getElementById('availToggle').style.display='none';
 renderProducts();
+(function(){const m=location.hash.match(/^#ref-(\d+)$/);if(m)openDetail(+m[1],false);})();
 </script>
 
 
