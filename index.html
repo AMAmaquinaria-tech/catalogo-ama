@@ -263,6 +263,14 @@ a.trust-item:hover strong,a.trust-item:hover{color:#fff;text-decoration:underlin
 .vbtn:hover{border-color:#cc2222;color:#fff}
 .vbtn.yt{background:#cc2222;border-color:#cc2222;color:#fff}
 .vbtn.yt:hover{background:#e02a2a}
+.entregas{margin-top:30px}
+.entregas h3{color:#f0f0f0;font-size:19px;text-align:center;margin-bottom:4px}
+.entregas .sub{margin-bottom:16px}
+.ent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:10px}
+.ent-grid figure{margin:0;background:#1f1f1f;border:1px solid #2a2a2a;border-radius:10px;overflow:hidden;cursor:zoom-in}
+.ent-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.ent-grid figcaption{padding:8px 10px;font-size:12.5px;color:#ccc;line-height:1.35}
+.ent-grid figcaption small{display:block;color:#777;font-size:11px;margin-top:2px}
 .antifraude{margin-top:18px;background:#2a1414;border:1px solid #6b2020;border-left:5px solid #cc2222;border-radius:10px;padding:16px 18px;color:#ddd;font-size:14px;line-height:1.6}
 .antifraude strong{color:#fff}
 .antifraude .af-t{display:block;font-size:16px;font-weight:800;color:#fff;margin-bottom:4px}
@@ -786,6 +794,8 @@ function modalMove(dir){
   modalIdx=(modalIdx+dir+modalImages.length)%modalImages.length;
   showModalImg();
 }
+const ENTREGAS=["img/entrega_1.webp", "img/entrega_2.webp", "img/entrega_3.webp", "img/entrega_4.webp", "img/entrega_5.webp", "img/entrega_6.webp", "img/entrega_7.webp", "img/entrega_8.webp", "img/entrega_9.webp"];
+function openEntrega(i){modalImages=ENTREGAS;modalIdx=i;showModalImg();document.getElementById('modal').classList.add('open');}
 function closeModal(){document.getElementById('modal').classList.remove('open');}
 // Teclado: flechas para navegar, Esc para cerrar
 document.addEventListener('keydown',e=>{
@@ -819,6 +829,21 @@ renderProducts();
       <li><strong>Te lo enviamos</strong><span>Coordinamos el flete a tu estado y te mandamos fotos al cargar el equipo.</span></li>
       <li><strong>Garantía por escrito</strong><span>3 meses o 500 horas en defectos de fábrica, con póliza, y asesoría para refacciones.</span></li>
     </ol>
+    <div class="entregas">
+      <h3>🚚 Equipos entregados a clientes</h3>
+      <p class="sub">Fotos reales de equipos vendidos al cargarlos para su entrega.</p>
+      <div class="ent-grid">
+        <figure onclick="openEntrega(0)"><img src="img/entrega_1.webp" alt="Entrega: Rodillo doble Furd" loading="lazy" decoding="async"><figcaption>Rodillo doble Furd<small>Oct 2026</small></figcaption></figure>
+        <figure onclick="openEntrega(1)"><img src="img/entrega_2.webp" alt="Entrega: Rodillo y minicargador listos para envío por paquetería" loading="lazy" decoding="async"><figcaption>Rodillo y minicargador listos para envío por paquetería<small>Oct 2026</small></figcaption></figure>
+        <figure onclick="openEntrega(2)"><img src="img/entrega_3.webp" alt="Entrega: Minicargador SDLOOL sobre orugas" loading="lazy" decoding="async"><figcaption>Minicargador SDLOOL sobre orugas<small>Oct 2026</small></figcaption></figure>
+        <figure onclick="openEntrega(3)"><img src="img/entrega_4.webp" alt="Entrega: Miniexcavadora SDLANCH ME20, embalada para envío" loading="lazy" decoding="async"><figcaption>Miniexcavadora SDLANCH ME20, embalada para envío<small>Oct 2026</small></figcaption></figure>
+        <figure onclick="openEntrega(4)"><img src="img/entrega_5.webp" alt="Entrega: Rodillo doble Furd" loading="lazy" decoding="async"><figcaption>Rodillo doble Furd<small>Oct 2026</small></figcaption></figure>
+        <figure onclick="openEntrega(5)"><img src="img/entrega_6.webp" alt="Entrega: Generador Cummins silenciado" loading="lazy" decoding="async"><figcaption>Generador Cummins silenciado<small>Ago 2026</small></figcaption></figure>
+        <figure onclick="openEntrega(6)"><img src="img/entrega_7.webp" alt="Entrega: Generador diésel silenciado" loading="lazy" decoding="async"><figcaption>Generador diésel silenciado<small>Jul 2026</small></figcaption></figure>
+        <figure onclick="openEntrega(7)"><img src="img/entrega_8.webp" alt="Entrega: Montacargas todo terreno 3.5 ton" loading="lazy" decoding="async"><figcaption>Montacargas todo terreno 3.5 ton<small>Mar 2026</small></figcaption></figure>
+        <figure onclick="openEntrega(8)"><img src="img/entrega_9.webp" alt="Entrega: Rodillo Furd FYL-880" loading="lazy" decoding="async"><figcaption>Rodillo Furd FYL-880<small>Ago 2025</small></figcaption></figure>
+      </div>
+    </div>
     <div class="antifraude" role="note">
       <span class="af-t">🔒 Paga seguro: evita fraudes</span>
       AMA Maquinaria es el nombre comercial de <strong>Aceros y Materiales Aeropuerto</strong>. Solo recibimos pagos por transferencia a cuentas bancarias a nombre de <strong>Aceros y Materiales Aeropuerto</strong>, y la factura CFDI sale con esa misma razón social. <strong>Nunca te pediremos depositar a una cuenta personal.</strong> Antes de pagar, confirma los datos llamando al <a href="tel:+524422004002">(442) 200 4002</a>.
