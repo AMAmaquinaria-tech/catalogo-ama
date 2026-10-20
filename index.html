@@ -820,6 +820,20 @@ renderProducts();
 </script>
 
 
+<!-- Fichas en vivo: lo que el dueño aprueba en la hoja de Google reemplaza la ficha guardada (si Google no responde, queda la guardada) -->
+<script src="correcciones.js"></script>
+<script src="fichas-en-vivo.js"></script>
+<script>
+if(window.AMA_FICHAS_VIVO) AMA_FICHAS_VIVO.cargar().then(vivo=>{
+  let n=0;
+  PRODUCTS.forEach(p=>{const f=vivo[p.id]; if(!f)return; p.specs=f.specs; p.disp=f.disp; if(f.qty>=1)p.qty=Math.trunc(f.qty); n++;});
+  if(!n)return;
+  renderProducts();
+  if(detP&&document.getElementById('det').classList.contains('open'))
+    document.getElementById('detSpecs').innerHTML=detP.specs.map(s=>`<li><span>${s[0]}</span><span>${s[1]}</span></li>`).join('');
+}).catch(()=>{});
+</script>
+
 <!-- Compra a distancia + ubicación -->
 <section class="compra-section" id="compra-segura" aria-label="Compra desde cualquier estado">
   <div class="compra-box">
