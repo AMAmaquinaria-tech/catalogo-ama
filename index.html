@@ -6,13 +6,15 @@
 <meta name="google-site-verification" content="OyMkO3q2YMGDj34ZMpnkZsU-UiEo1j-lqKaD4dU17q0" />
 <link rel="icon" href="logo-ama.png">
 <link rel="apple-touch-icon" href="logo-ama.png">
-<!-- Google Analytics (GA4) — reemplaza G-XXXXXXXXXX por tu ID de medición -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<!-- Google Analytics (GA4): el ID de medición va en GA_ID. Mientras sea G-XXXXXXXXXX no se carga nada. -->
 <script>
+const GA_ID='G-XXXXXXXXXX';
 window.dataLayer=window.dataLayer||[];
 function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());
-gtag('config','G-XXXXXXXXXX');
+if(!/^G-X+$/.test(GA_ID)){
+  const s=document.createElement('script'); s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID; document.head.appendChild(s);
+  gtag('js',new Date()); gtag('config',GA_ID);
+}
 </script>
 <title>AMA Maquinaria – Generadores, Montacargas y Maquinaria Pesada en México | Catálogo 2026</title>
 <meta name="description" content="AMA Maquinaria: venta de generadores diésel, montacargas eléctricos, a gas y todo terreno, cargadores frontales, retroexcavadoras, excavadoras Caterpillar, minicargadoras, miniexcavadoras, rodillos compactadores doble tambor, elevadores de tijera y torres de iluminación. Equipos nuevos y usados disponibles en México. Cotiza por WhatsApp.">
@@ -467,6 +469,19 @@ const CONTACTO=(function(){
   }catch(e){}
   return CONTACTO_DEFAULT;
 })();
+// ===== Medición (Google Analytics) =====
+function itemGA(p){return {item_id:'AMA-'+p.id,item_name:p.name,item_category:p.cat};}
+function medir(evento,datos){try{gtag('event',evento,Object.assign({vendedor:CONTACTO.code||'principal'},datos||{}));}catch(e){}}
+document.addEventListener('click',e=>{
+  const a=e.target.closest&&e.target.closest('a[href]'); if(!a)return;
+  const h=a.getAttribute('href')||'', ficha=document.getElementById('det').classList.contains('open')&&detP?itemGA(detP):null;
+  const donde=a.closest('.det-panel')?'ficha':a.closest('header')?'encabezado':a.classList.contains('fab')?'boton_flotante':'pagina';
+  if(/wa\.me\//.test(h)) medir('generate_lead',Object.assign({method:'whatsapp',ubicacion:donde},ficha?{items:[ficha],item_id:ficha.item_id}:{}));
+  else if(/^tel:/.test(h)) medir('generate_lead',Object.assign({method:'llamada',ubicacion:donde},ficha?{items:[ficha],item_id:ficha.item_id}:{}));
+  else if(/maps\.app|google\.[a-z.]+\/maps/.test(h)) medir('ver_ubicacion',{ubicacion:donde});
+  else if(/youtube\.com/.test(h)) medir('ver_youtube',{ubicacion:donde});
+  else if(/mercadolibre/.test(h)) medir('ver_mercadolibre',{ubicacion:donde});
+},true);
 function aplicarContacto(){
   const num=CONTACTO.tel;
   document.querySelectorAll('a[href]').forEach(a=>{
@@ -645,7 +660,9 @@ function toggleAvailable(){
   document.getElementById('availToggle').classList.toggle('active',onlyAvailable);
   renderProducts();
 }
-function filterProducts(){currentSearch=document.getElementById('searchInput').value.toLowerCase();renderProducts();}
+let busquedaGA=null;
+function filterProducts(){currentSearch=document.getElementById('searchInput').value.toLowerCase();renderProducts();
+  clearTimeout(busquedaGA); if(currentSearch.trim().length>2) busquedaGA=setTimeout(()=>medir('search',{search_term:currentSearch.trim()}),1500);}
 function renderProducts(){
   const grid=document.getElementById('productGrid');
   const base=PRODUCTS.filter(p=>{
@@ -688,6 +705,7 @@ function waLink(p){
   return 'https://wa.me/'+CONTACTO.tel+'?text='+encodeURIComponent('Hola, me interesa el '+p.name+' (Ref. '+p.id+'). ¿Me pueden dar precio y disponibilidad?');
 }
 function shareProduct(p){
+  medir('share',{item_id:'AMA-'+p.id,item_name:p.name,method:navigator.share?'nativo':'whatsapp'});
   const url='https://amamaquinaria.com/'+(CONTACTO.code?('?v='+CONTACTO.code):'')+'#ref-'+p.id;
   const text='Mira este equipo de AMA Maquinaria: '+p.name;
   if(navigator.share){navigator.share({title:'AMA Maquinaria',text:text,url:url}).catch(()=>{});}
@@ -698,6 +716,7 @@ let detP=null,detIdx=0,detPushed=false;
 function openDetail(id,push){
   const p=PRODUCTS.find(x=>x.id===id); if(!p)return;
   detP=p; detIdx=0;
+  medir('view_item',{items:[itemGA(p)]});
   const disp=p.disp!==false;
   document.getElementById('detCat').textContent=p.cat;
   document.getElementById('detName').textContent=p.name;
@@ -721,6 +740,7 @@ function openDetail(id,push){
 // Video de YouTube del equipo dentro del visor de la ficha
 function detVideo(play){
   if(!detP||!detP.video)return;
+  if(play) medir('ver_video',{item_id:'AMA-'+detP.id,item_name:detP.name});
   const main=document.getElementById('detMain');
   main.querySelectorAll('.thumb-ph,iframe').forEach(e=>e.remove());
   document.getElementById('detImg').style.display='none';
@@ -921,7 +941,7 @@ if(window.AMA_FICHAS_VIVO) AMA_FICHAS_VIVO.cargar().then(vivo=>{
   <div class="contact-box">
     <h2>Solicita tu cotización</h2>
     <p class="sub">Déjanos tus datos y un asesor te contacta con precio y disponibilidad. También puedes escribirnos por WhatsApp al +52 442 200 4002.</p>
-    <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/gracias.html" class="contact-form">
+    <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/gracias.html" class="contact-form" onsubmit="medir('generate_lead',{method:'formulario',equipo:this.equipo.value||'sin_elegir'})">
       <input type="hidden" name="form-name" value="contacto">
       <input type="hidden" name="vendedor" value="">
       <p class="hp"><label>No llenar: <input name="bot-field"></label></p>
