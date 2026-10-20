@@ -237,6 +237,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111;color:#eee;min-
 .det-share{display:flex;align-items:center;justify-content:center;width:50px;flex-shrink:0;background:#222;border:1px solid #333;color:#bbb;border-radius:50%;cursor:pointer}
 .det-share:hover{border-color:#cc2222;color:#fff}
 .det-ref{font-size:11px;color:#666;margin-top:10px;text-align:center}
+.det-ref a{color:#aaa}
+.card-name a{color:inherit;text-decoration:none}
+.seo-section .equipos-lista{columns:2 260px;font-size:13px;margin:6px 0 14px 18px;color:#888}
+.seo-section .equipos-lista a{color:#bbb}
 .det-main iframe{width:100%;height:100%;border:0;background:#000}
 .det-vthumb{position:relative;width:68px;height:68px;flex-shrink:0;cursor:pointer;border-radius:6px;overflow:hidden;border:2px solid transparent;opacity:.8}
 .det-vthumb.active{border-color:#cc2222;opacity:1}
@@ -546,6 +550,9 @@ const IMG_FURD2800=["img/furd2800_0.webp", "img/furd2800_1.webp", "img/furd2800_
 const IMG_SSL1300=["img/ssl1300_0.webp", "img/ssl1300_1.webp", "img/ssl1300_2.webp", "img/ssl1300_3.webp", "img/ssl1300_4.webp", "img/ssl1300_5.webp", "img/ssl1300_6.webp", "img/ssl1300_7.webp", "img/ssl1300_8.webp", "img/ssl1300_9.webp", "img/ssl1300_10.webp", "img/ssl1300_11.webp", "img/ssl1300_12.webp"];
 const IMG_CAT320D2=["img/cat320d2_1.webp", "img/cat320d2_2.webp", "img/cat320d2_3.webp", "img/cat320d2_4.webp", "img/cat320d2_5.webp", "img/cat320d2_6.webp", "img/cat320d2_7.webp", "img/cat320d2_8.webp", "img/cat320d2_9.webp"];
 const IMG_CLG72=["img/clg72_0.webp", "img/clg72_1.webp", "img/clg72_2.webp", "img/clg72_3.webp", "img/clg72_4.webp", "img/clg72_5.webp", "img/clg72_6.webp", "img/clg72_7.webp", "img/clg72_8.webp", "img/clg72_9.webp", "img/clg72_10.webp", "img/clg72_11.webp"];
+// Página propia de cada equipo (/equipos/<slug>/). La escribe generar_paginas.py: no editar a mano.
+const EQUIPO_URL={"26":"generador-apex-de-reserva-glp-gn-ap-10-ap-14","6":"montacargas-energy-cpc35-diesel","7":"montacargas-electrico-stma-opd15-60s","27":"montacargas-todo-terreno-terramax-zy-35a-4x4","44":"montacargas-electrico-starvox-cpd-20","11":"minicargador-sdlool-sl323w","29":"cargador-frontal-kul-zl938","40":"retroexcavadora-kinway-kw-420k","23":"minicargador-sl380-sobre-orugas","41":"minicargador-sdlool-ssl1300-sobre-orugas","42":"minicargador-sdlanch-ssl60-sobre-orugas","56":"excavadora-caterpillar-320d2","30":"rodillo-doble-case-450-nx","31":"rodillo-doble-furd-fyl-6000nor-3-ton","32":"rodillo-doble-furd-fyl-3000pro-diesel-1-5-ton","33":"rodillo-doble-furd-fyl-3000pro-gasolina-1-5-ton","34":"rodillo-doble-furd-fyl-2800pro-gasolina-1-ton","14":"elevador-de-tijera-liondi-efm-6000","18":"torres-de-iluminacion","20":"miniexcavadora-vicsec-vc15d","37":"miniexcavadora-vicsec-18","43":"miniexcavadora-vicsec-13cd","38":"zanjadora-giyi-d39-para-minicargador","39":"lote-de-accesorios-giyi-gya-8-para-miniexcavadora","54":"garra-curva-para-troncos-giyi-clg72","15":"martillo-hidraulico-sdch750","16":"martillo-hidraulico-sdch450","53":"martillo-hidraulico-jw400s","17":"kit-mangueras-para-martillo"};
+const urlEquipo=(p,abs)=>EQUIPO_URL[p.id]?(abs?'https://amamaquinaria.com':'')+'/equipos/'+EQUIPO_URL[p.id]+'/'+(CONTACTO.code?'?v='+CONTACTO.code:''):'';
 const PRODUCTS=[
 
   {id:3,cat:'Generadores',name:'Generador Ashita 10 kVA',qty:1,disp:false,images:IMG_GEN10,
@@ -697,7 +704,7 @@ function cardHTML(p){
     <div class="card-title">
       ${p.isPaquete?'<span class="paquete-badge">📦 Paquete</span>':''}
       <div class="card-cat">${p.cat}</div>
-      <h3 class="card-name">${p.name}</h3>
+      <h3 class="card-name">${urlEquipo(p)?`<a href="${urlEquipo(p)}" onclick="event.preventDefault()">${p.name}</a>`:p.name}</h3>
     </div>
   </div>`;
 }
@@ -706,7 +713,7 @@ function waLink(p){
 }
 function shareProduct(p){
   medir('share',{item_id:'AMA-'+p.id,item_name:p.name,method:navigator.share?'nativo':'whatsapp'});
-  const url='https://amamaquinaria.com/'+(CONTACTO.code?('?v='+CONTACTO.code):'')+'#ref-'+p.id;
+  const url=urlEquipo(p,true)||'https://amamaquinaria.com/'+(CONTACTO.code?('?v='+CONTACTO.code):'')+'#ref-'+p.id;   // la página del equipo muestra su foto al compartir
   const text='Mira este equipo de AMA Maquinaria: '+p.name;
   if(navigator.share){navigator.share({title:'AMA Maquinaria',text:text,url:url}).catch(()=>{});}
   else{window.open('https://wa.me/?text='+encodeURIComponent(text+' '+url),'_blank');}
@@ -724,7 +731,7 @@ function openDetail(id,push){
   document.getElementById('detSpecs').innerHTML=p.specs.map(s=>`<li><span>${s[0]}</span><span>${s[1]}</span></li>`).join('');
   document.getElementById('detIncludes').innerHTML=p.includes?`<div class="includes-list"><div class="includes-title">Incluye</div>${p.includes.map(i=>`<div class="includes-item"><span>${i}</span></div>`).join('')}</div>`:'';
   document.getElementById('detWa').href=waLink(p);
-  document.getElementById('detRef').textContent='Ref. '+p.id+' · Envíos a toda la República';
+  document.getElementById('detRef').innerHTML='Ref. '+p.id+' · Envíos a toda la República'+(urlEquipo(p)?' · <a href="'+urlEquipo(p)+'">Ver página del equipo ↗</a>':'');
   const imgs=p.images||[];
   document.getElementById('detVidBtn').style.display=p.video?'':'none';
   document.getElementById('detThumbs').innerHTML=(imgs.length>1||(p.video&&imgs.length))?
@@ -985,6 +992,40 @@ if(window.AMA_FICHAS_VIVO) AMA_FICHAS_VIVO.cargar().then(vivo=>{
 </div>
 
 <section class="seo-section" aria-label="Información AMA Maquinaria">
+  <h2>Equipos disponibles</h2>
+  <ul class="equipos-lista">
+    <!--EQUIPOS-->
+    <li><a href="/equipos/garra-curva-para-troncos-giyi-clg72/">Garra Curva para Troncos GIYI CLG72</a></li>
+    <li><a href="/equipos/kit-mangueras-para-martillo/">Kit Mangueras para Martillo</a></li>
+    <li><a href="/equipos/lote-de-accesorios-giyi-gya-8-para-miniexcavadora/">Lote de Accesorios GIYI GYA-8 para Miniexcavadora</a></li>
+    <li><a href="/equipos/martillo-hidraulico-jw400s/">Martillo Hidráulico JW400S</a></li>
+    <li><a href="/equipos/martillo-hidraulico-sdch450/">Martillo Hidráulico SDCH450</a></li>
+    <li><a href="/equipos/martillo-hidraulico-sdch750/">Martillo Hidráulico SDCH750</a></li>
+    <li><a href="/equipos/zanjadora-giyi-d39-para-minicargador/">Zanjadora GIYI D39 para Minicargador</a></li>
+    <li><a href="/equipos/generador-apex-de-reserva-glp-gn-ap-10-ap-14/">Generador Apex de Reserva GLP/GN (AP 10 / AP 14)</a></li>
+    <li><a href="/equipos/torres-de-iluminacion/">Torres de Iluminación</a></li>
+    <li><a href="/equipos/cargador-frontal-kul-zl938/">Cargador Frontal KUL ZL938</a></li>
+    <li><a href="/equipos/elevador-de-tijera-liondi-efm-6000/">Elevador de Tijera Liondi EFM-6000</a></li>
+    <li><a href="/equipos/excavadora-caterpillar-320d2/">Excavadora Caterpillar 320D2</a></li>
+    <li><a href="/equipos/minicargador-sdlanch-ssl60-sobre-orugas/">Minicargador SDLANCH SSL60 sobre Orugas</a></li>
+    <li><a href="/equipos/minicargador-sdlool-sl323w/">Minicargador SDLOOL SL323W</a></li>
+    <li><a href="/equipos/minicargador-sdlool-ssl1300-sobre-orugas/">Minicargador SDLOOL SSL1300 sobre Orugas</a></li>
+    <li><a href="/equipos/minicargador-sl380-sobre-orugas/">Minicargador SL380 sobre Orugas</a></li>
+    <li><a href="/equipos/miniexcavadora-vicsec-13cd/">Miniexcavadora Vicsec 13CD</a></li>
+    <li><a href="/equipos/miniexcavadora-vicsec-18/">Miniexcavadora Vicsec 18</a></li>
+    <li><a href="/equipos/miniexcavadora-vicsec-vc15d/">Miniexcavadora Vicsec VC15D</a></li>
+    <li><a href="/equipos/retroexcavadora-kinway-kw-420k/">Retroexcavadora KINWAY KW-420K</a></li>
+    <li><a href="/equipos/rodillo-doble-case-450-nx/">Rodillo Doble Case 450 NX</a></li>
+    <li><a href="/equipos/rodillo-doble-furd-fyl-2800pro-gasolina-1-ton/">Rodillo Doble Furd FYL-2800PRO Gasolina 1 ton</a></li>
+    <li><a href="/equipos/rodillo-doble-furd-fyl-3000pro-diesel-1-5-ton/">Rodillo Doble Furd FYL-3000PRO Diésel 1.5 ton</a></li>
+    <li><a href="/equipos/rodillo-doble-furd-fyl-3000pro-gasolina-1-5-ton/">Rodillo Doble Furd FYL-3000PRO Gasolina 1.5 ton</a></li>
+    <li><a href="/equipos/rodillo-doble-furd-fyl-6000nor-3-ton/">Rodillo Doble Furd FYL-6000NOR 3 ton</a></li>
+    <li><a href="/equipos/montacargas-electrico-starvox-cpd-20/">Montacargas Eléctrico STARVOX CPD-20</a></li>
+    <li><a href="/equipos/montacargas-electrico-stma-opd15-60s/">Montacargas Eléctrico STMA OPD15-60S</a></li>
+    <li><a href="/equipos/montacargas-energy-cpc35-diesel/">Montacargas Energy CPC35 Diésel</a></li>
+    <li><a href="/equipos/montacargas-todo-terreno-terramax-zy-35a-4x4/">Montacargas Todo Terreno Terramax ZY-35A 4x4</a></li>
+    <!--/EQUIPOS-->
+  </ul>
   <h2>¿Por qué elegir AMA Maquinaria?</h2>
   <p>Somos una empresa mexicana con inventario disponible de maquinaria industrial para venta. Atendemos a empresas de construcción, manufactura, logística y eventos. Todos nuestros equipos se entregan con verificación de condición y asesoría técnica.</p>
 
