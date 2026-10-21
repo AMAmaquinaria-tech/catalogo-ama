@@ -16,6 +16,21 @@ if(!/^G-X+$/.test(GA_ID)){
   gtag('js',new Date()); gtag('config',GA_ID);
 }
 </script>
+<!-- Meta Pixel (ID en META_PIXEL). Eventos: ViewContent con el id del catálogo AMA-<id>, Lead (WhatsApp/formulario), Contact (llamada), Search -->
+<script>
+const META_PIXEL='3706207049531799';
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init',META_PIXEL);fbq('track','PageView');
+// Traduce los eventos de Analytics a Meta (los ids coinciden con el catálogo de Meta: AMA-<id>)
+function metaEvento(ev,d){try{d=d||{};const it=(d.items&&d.items[0])||(d.item_id?{item_id:d.item_id,item_name:d.item_name}:null);
+  const base=it?{content_ids:[it.item_id],content_type:'product',content_name:it.item_name,content_category:it.item_category}:{};
+  if(ev==='view_item')fbq('track','ViewContent',base);
+  else if(ev==='generate_lead')fbq('track',d.method==='llamada'?'Contact':'Lead',Object.assign(base,{content_category:d.method}));
+  else if(ev==='search')fbq('track','Search',{search_string:d.search_term});}catch(e){}}
+</script>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=3706207049531799&ev=PageView&noscript=1"></noscript>
 <title>AMA Maquinaria – Generadores, Montacargas y Maquinaria Pesada en México | Catálogo 2026</title>
 <meta name="description" content="AMA Maquinaria: venta de generadores diésel, montacargas eléctricos, a gas y todo terreno, cargadores frontales, retroexcavadoras, excavadoras Caterpillar, minicargadoras, miniexcavadoras, rodillos compactadores doble tambor, elevadores de tijera y torres de iluminación. Equipos nuevos y usados disponibles en México. Cotiza por WhatsApp.">
 <meta name="keywords" content="generador diesel Mexico, planta de luz, montacargas electrico, montacargas todo terreno 4x4, cargador frontal, cargador ZL938, minicargadora, minicargador sobre orugas, mini skid steer, SL380, SL530T, 360TD, miniexcavadora, miniexcavadora Cat 301, rodillo compactador, rodillo doble tambor, rodillo Furd FYL-6000NOR, rodillo FYL-3000PRO, rodillo Case 450 NX, zanjadora para minicargador, aditamentos miniexcavadora, elevador tijera, torres iluminacion, martillo hidraulico SDCH750, maquinaria industrial Mexico, AMA Maquinaria, venta maquinaria Queretaro">
@@ -475,7 +490,7 @@ const CONTACTO=(function(){
 })();
 // ===== Medición (Google Analytics) =====
 function itemGA(p){return {item_id:'AMA-'+p.id,item_name:p.name,item_category:p.cat};}
-function medir(evento,datos){try{gtag('event',evento,Object.assign({vendedor:CONTACTO.code||'principal'},datos||{}));}catch(e){}}
+function medir(evento,datos){try{gtag('event',evento,Object.assign({vendedor:CONTACTO.code||'principal'},datos||{}));}catch(e){} metaEvento(evento,datos);}
 document.addEventListener('click',e=>{
   const a=e.target.closest&&e.target.closest('a[href]'); if(!a)return;
   const h=a.getAttribute('href')||'', ficha=document.getElementById('det').classList.contains('open')&&detP?itemGA(detP):null;

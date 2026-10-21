@@ -9,6 +9,21 @@ const GA_ID='G-JT4GC2Q7VT';
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 if(!/^G-X+$/.test(GA_ID)){const s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;document.head.appendChild(s);gtag('js',new Date());gtag('config',GA_ID);}
 </script>
+<!-- Meta Pixel (ID en META_PIXEL). Eventos: ViewContent con el id del catálogo AMA-<id>, Lead (WhatsApp/formulario), Contact (llamada), Search -->
+<script>
+const META_PIXEL='3706207049531799';
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init',META_PIXEL);fbq('track','PageView');
+// Traduce los eventos de Analytics a Meta (los ids coinciden con el catálogo de Meta: AMA-<id>)
+function metaEvento(ev,d){try{d=d||{};const it=(d.items&&d.items[0])||(d.item_id?{item_id:d.item_id,item_name:d.item_name}:null);
+  const base=it?{content_ids:[it.item_id],content_type:'product',content_name:it.item_name,content_category:it.item_category}:{};
+  if(ev==='view_item')fbq('track','ViewContent',base);
+  else if(ev==='generate_lead')fbq('track',d.method==='llamada'?'Contact':'Lead',Object.assign(base,{content_category:d.method}));
+  else if(ev==='search')fbq('track','Search',{search_string:d.search_term});}catch(e){}}
+</script>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=3706207049531799&ev=PageView&noscript=1"></noscript>
 <title>Rodillo Doble Furd FYL-6000NOR 3 ton en venta | AMA Maquinaria</title>
 <meta name="description" content="Rodillo Doble Furd FYL-6000NOR 3 ton en venta en Querétaro. Rodillo vibratorio doble tambor, 3 toneladas, 35.4 HP. Nuevo, 2026. Envíos a todo México, factura y garantía. Cotiza por WhatsApp.">
 <link rel="canonical" href="https://amamaquinaria.com/equipos/rodillo-doble-furd-fyl-6000nor-3-ton/">
@@ -103,7 +118,7 @@ footer a{color:#ddd;margin:0 6px}
 <script>
 const EQ={"id": 31, "name": "Rodillo Doble Furd FYL-6000NOR 3 ton", "cat": "Maquinaria Pesada", "vend": {"mauricio": {"tel": "527971036762", "display": "797 103 6762", "nombre": "Mauricio Rojas"}}, "def": {"tel": "524422004002", "display": "(442) 200 4002", "nombre": "AMA Maquinaria"}};
 const CONTACTO=(function(){try{const c=(new URLSearchParams(location.search).get('v')||'').toLowerCase().trim();if(c&&EQ.vend[c])return Object.assign({code:c},EQ.vend[c]);}catch(e){}return EQ.def;})();
-function medir(ev,d){try{gtag('event',ev,Object.assign({vendedor:CONTACTO.code||'principal'},d||{}));}catch(e){}}
+function medir(ev,d){try{gtag('event',ev,Object.assign({vendedor:CONTACTO.code||'principal'},d||{}));}catch(e){} metaEvento(ev,d);}
 const ITEM={item_id:'AMA-'+EQ.id,item_name:EQ.name,item_category:EQ.cat};
 document.querySelectorAll('a[href*="wa.me/524422004002"]').forEach(a=>a.href=a.href.replace('524422004002',CONTACTO.tel));
 document.querySelectorAll('a[href^="tel:"]').forEach(a=>a.href='tel:+'+CONTACTO.tel);
