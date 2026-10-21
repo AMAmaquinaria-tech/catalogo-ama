@@ -14,3 +14,11 @@
   to = "https://amamaquinaria.com/:splat"
   status = 301
   force = true
+
+# Catálogo para Meta (fuente programada): que no salga en Google y que Meta siempre lea la versión nueva
+[[headers]]
+  for = "/catalogo-meta.csv"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Content-Type = "text/csv; charset=utf-8"
