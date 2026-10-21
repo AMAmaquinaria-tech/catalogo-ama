@@ -7,3 +7,10 @@
   for = "/img/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# La dirección vieja de Netlify lleva al dominio propio (antes mostraba la página completa)
+[[redirects]]
+  from = "https://ama-catalogo.netlify.app/*"
+  to = "https://amamaquinaria.com/:splat"
+  status = 301
+  force = true
