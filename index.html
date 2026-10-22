@@ -23,11 +23,13 @@ const META_PIXEL='3706207049531799';
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init',META_PIXEL);fbq('track','PageView');
+// Valor estimado de un contacto (MXN) para que Meta optimice: ~$75k de ganancia por equipo / ~40-50 contactos por venta
+const VALOR_CONTACTO=1500, VALOR_LLAMADA=1000;
 // Traduce los eventos de Analytics a Meta (los ids coinciden con el catálogo de Meta: AMA-<id>)
 function metaEvento(ev,d){try{d=d||{};const it=(d.items&&d.items[0])||(d.item_id?{item_id:d.item_id,item_name:d.item_name}:null);
   const base=it?{content_ids:[it.item_id],content_type:'product',content_name:it.item_name,content_category:it.item_category}:{};
   if(ev==='view_item')fbq('track','ViewContent',base);
-  else if(ev==='generate_lead')fbq('track',d.method==='llamada'?'Contact':'Lead',Object.assign(base,{content_category:d.method}));
+  else if(ev==='generate_lead')fbq('track',d.method==='llamada'?'Contact':'Lead',Object.assign(base,{content_category:d.method,value:d.method==='llamada'?VALOR_LLAMADA:VALOR_CONTACTO,currency:'MXN'}));
   else if(ev==='search')fbq('track','Search',{search_string:d.search_term});}catch(e){}}
 </script>
 <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=3706207049531799&ev=PageView&noscript=1"></noscript>
