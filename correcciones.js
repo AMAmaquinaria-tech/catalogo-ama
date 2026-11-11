@@ -66,7 +66,9 @@ window.AMA_CORRECCIONES = {
   "Reflectores": null,
   "Transporte": null,
   "Mástil": null,
-  "Motor": "Eléctrico"
+  "Motor": "Eléctrico",
+  "_disp": false,
+  "_vendido": "2026-11-10 (elevador Liondi EFM-6000)"
  },
  "39": {
   "Opcional (extra)": null,
