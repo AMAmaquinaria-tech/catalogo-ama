@@ -384,6 +384,23 @@ a.trust-item:hover strong,a.trust-item:hover{color:#fff;text-decoration:underlin
   .fab-call{bottom:82px}
   .fab-wa{bottom:18px}
 }
+/* ===== Buen Fin 2026 (solo se ve del 12 al 20 de noviembre; vista previa con ?bf=1) ===== */
+.bf-banner{display:none;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap;background:linear-gradient(90deg,#b81f1f,#cc2222 50%,#b81f1f);color:#fff;padding:10px 16px;border-bottom:3px solid #ffcd00;text-align:center}
+.bf-on .bf-banner{display:flex}
+.bf-banner img{height:54px;width:auto}
+.bf-banner .bf-txt{font-size:15px;line-height:1.35}
+.bf-banner .bf-txt strong{color:#ffcd00;font-size:17px}
+.bf-banner .bf-txt small{display:block;font-size:11px;opacity:.85}
+.bf-banner button{background:#ffcd00;color:#1c1c1c;border:0;border-radius:18px;padding:7px 14px;font-weight:700;font-size:13px;cursor:pointer}
+.thumb-bf{position:absolute;left:0;top:10px;display:flex;align-items:center;gap:6px;background:#cc2222;color:#fff;font-size:11px;font-weight:800;line-height:1.15;padding:4px 10px 4px 5px;border-radius:0 14px 14px 0;box-shadow:0 2px 6px rgba(0,0,0,.45);max-width:88%}
+.thumb-bf img{width:30px!important;height:30px!important;object-fit:contain!important;transform:none!important;flex-shrink:0}
+.thumb-bf b{color:#ffcd00;font-weight:800}
+.det-bf{display:flex;gap:12px;align-items:flex-start;background:#2a1414;border:1px solid #cc2222;border-radius:10px;padding:12px;margin:12px 0}
+.det-bf img{width:56px;height:auto;flex-shrink:0}
+.det-bf .t{font-size:14px;color:#f0f0f0;line-height:1.4}
+.det-bf .t strong{color:#ffcd00}
+.det-bf .t small{display:block;color:#aaa;font-size:11px;margin-top:5px;line-height:1.35}
+@media(max-width:600px){.thumb-bf{font-size:10px;top:6px;padding:3px 8px 3px 4px}.thumb-bf img{width:24px!important;height:24px!important}.bf-banner img{height:44px}.bf-banner .bf-txt{font-size:13px}}
 </style>
 </head>
 <body>
@@ -404,6 +421,12 @@ a.trust-item:hover strong,a.trust-item:hover{color:#fff;text-decoration:underlin
     </a>
   </div>
 </header>
+<div class="bf-banner" id="bfBanner">
+  <img src="img/buen-fin.webp" alt="Buen Fin" width="55" height="54">
+  <div class="bf-txt"><strong>Del 12 al 20 de noviembre</strong><br>10% de descuento pagando de contado o 3 meses sin intereses en equipos seleccionados
+    <small>MSI con tarjetas de crédito participantes · Promociones no acumulables · Hasta agotar existencias · Precios con IVA</small></div>
+  <button onclick="bfSoloPromo()">Ver equipos en promoción</button>
+</div>
 <div class="trust-bar">
   <a class="trust-item" href="https://maps.app.goo.gl/N5kA3haTio9eYK9p7" target="_blank" rel="noopener"><span class="ti-ico">📍</span><strong>Querétaro, México</strong></a>
   <span class="trust-item"><span class="ti-ico">🚚</span>Envíos a <strong>todo México</strong></span>
@@ -455,6 +478,7 @@ a.trust-item:hover strong,a.trust-item:hover{color:#fff;text-decoration:underlin
       <div class="card-cat" id="detCat"></div>
       <h2 class="det-name" id="detName"></h2>
       <span class="badge-avail" id="detAvail"></span>
+      <div id="detBF"></div>
       <button class="det-video-btn" id="detVidBtn" onclick="detVideo(true)">▶ Ver video del equipo</button>
       <ul class="det-specs" id="detSpecs"></ul>
       <div id="detIncludes"></div>
@@ -566,6 +590,11 @@ const IMG_JW400S=["img/jw400s_0.webp", "img/jw400s_1.webp", "img/jw400s_2.webp",
 const IMG_FURD2800=["img/furd2800_0.webp", "img/furd2800_1.webp", "img/furd2800_2.webp", "img/furd2800_3.webp", "img/furd2800_4.webp", "img/furd2800_5.webp", "img/furd2800_6.webp", "img/furd2800_7.webp", "img/furd2800_8.webp", "img/furd2800_9.webp", "img/furd2800_10.webp", "img/furd2800_11.webp"];
 const IMG_SSL1300=["img/ssl1300_0.webp", "img/ssl1300_1.webp", "img/ssl1300_2.webp", "img/ssl1300_3.webp", "img/ssl1300_4.webp", "img/ssl1300_5.webp", "img/ssl1300_6.webp", "img/ssl1300_7.webp", "img/ssl1300_8.webp", "img/ssl1300_9.webp", "img/ssl1300_10.webp", "img/ssl1300_11.webp", "img/ssl1300_12.webp"];
 const IMG_CAT320D2=["img/cat320d2_1.webp", "img/cat320d2_2.webp", "img/cat320d2_3.webp", "img/cat320d2_4.webp", "img/cat320d2_5.webp", "img/cat320d2_6.webp", "img/cat320d2_7.webp", "img/cat320d2_8.webp", "img/cat320d2_9.webp"];
+const IMG_VC13CD=["img/vc13cd_0.webp", "img/vc13cd_1.webp", "img/vc13cd_2.webp", "img/vc13cd_3.webp", "img/vc13cd_4.webp", "img/vc13cd_5.webp", "img/vc13cd_6.webp", "img/vc13cd_7.webp", "img/vc13cd_8.webp", "img/vc13cd_9.webp", "img/vc13cd_10.webp", "img/vc13cd_11.webp", "img/vc13cd_12.webp", "img/vc13cd_13.webp", "img/vc13cd_14.webp"];
+const IMG_SSL60=["img/ssl60_0.webp", "img/ssl60_1.webp", "img/ssl60_2.webp", "img/ssl60_3.webp", "img/ssl60_4.webp", "img/ssl60_5.webp", "img/ssl60_6.webp", "img/ssl60_7.webp", "img/ssl60_8.webp", "img/ssl60_9.webp", "img/ssl60_10.webp", "img/ssl60_11.webp", "img/ssl60_12.webp"];
+const IMG_STARVOX=["img/starvox_0.webp", "img/starvox_1.webp", "img/starvox_2.webp", "img/starvox_3.webp", "img/starvox_4.webp", "img/starvox_5.webp", "img/starvox_6.webp", "img/starvox_7.webp", "img/starvox_8.webp", "img/starvox_9.webp", "img/starvox_10.webp", "img/starvox_11.webp", "img/starvox_12.webp", "img/starvox_13.webp", "img/starvox_14.webp"];
+const IMG_FURD3000G=["img/furd3000g_0.webp", "img/furd3000g_1.webp", "img/furd3000g_2.webp", "img/furd3000g_3.webp", "img/furd3000g_4.webp", "img/furd3000g_5.webp", "img/furd3000g_6.webp", "img/furd3000g_7.webp", "img/furd3000g_8.webp", "img/furd3000g_9.webp", "img/furd3000g_10.webp", "img/furd3000g_11.webp", "img/furd3000g_12.webp", "img/furd3000g_13.webp", "img/furd3000g_14.webp"];
+const IMG_SDCH450=["img/sdch450_0.webp"];
 const IMG_CLG72=["img/clg72_0.webp", "img/clg72_1.webp", "img/clg72_2.webp", "img/clg72_3.webp", "img/clg72_4.webp", "img/clg72_5.webp", "img/clg72_6.webp", "img/clg72_7.webp", "img/clg72_8.webp", "img/clg72_9.webp", "img/clg72_10.webp", "img/clg72_11.webp"];
 // Página propia de cada equipo (/equipos/<slug>/). La escribe generar_paginas.py: no editar a mano.
 const EQUIPO_URL={"26":"generador-apex-de-reserva-glp-gn-ap-10-ap-14","6":"montacargas-energy-cpc35-diesel","7":"montacargas-electrico-stma-opd15-60s","27":"montacargas-todo-terreno-terramax-zy-35a-4x4","44":"montacargas-electrico-starvox-cpd-20","11":"minicargador-sdlool-sl323w","29":"cargador-frontal-kul-zl938","40":"retroexcavadora-kinway-kw-420k","23":"minicargador-sl380-sobre-orugas","41":"minicargador-sdlool-ssl1300-sobre-orugas","42":"minicargador-sdlanch-ssl60-sobre-orugas","56":"excavadora-caterpillar-320d2","30":"rodillo-doble-case-450-nx","31":"rodillo-doble-furd-fyl-6000nor-3-ton","32":"rodillo-doble-furd-fyl-3000pro-diesel-1-5-ton","33":"rodillo-doble-furd-fyl-3000pro-gasolina-1-5-ton","34":"rodillo-doble-furd-fyl-2800pro-gasolina-1-ton","18":"torres-de-iluminacion","20":"miniexcavadora-vicsec-vc15d","37":"miniexcavadora-vicsec-18","43":"miniexcavadora-vicsec-13cd","38":"zanjadora-giyi-d39-para-minicargador","39":"lote-de-accesorios-giyi-gya-8-para-miniexcavadora","54":"garra-curva-para-troncos-giyi-clg72","15":"martillo-hidraulico-sdch750","16":"martillo-hidraulico-sdch450","53":"martillo-hidraulico-jw400s","17":"kit-mangueras-para-martillo"};
@@ -598,7 +627,7 @@ const PRODUCTS=[
     specs:[['Modelo','GLC050VXNVSE083'],['Capacidad','2,110 kg (4,650 lb)'],['Alt. máx. elevación','4,800 mm'],['Peso operativo','4,150 kg'],['Combustible','Gas LP'],['Transmisión','Techtronix 100'],['Llantas del.','21×7×15 Cushion'],['Llantas tras.','16×5×10.5 Cushion'],['Condición','Usado']]},
   {id:27,cat:'Montacargas',name:'Montacargas Todo Terreno Terramax ZY-35A 4x4',qty:1,images:IMG_TERRAMAX,video:'7Ep-66Ks0gI',
     specs:[['Marca','Terramax'],['Modelo','ZY-35A'],['Tipo','Montacargas todo terreno (rough terrain)'],['Capacidad','3,500 kg (7,700 lb)'],['Alt. máx. elevación','4,547 mm (179 in)'],['Alt. mástil replegado','2,311 mm (91 in)'],['Mástil','3 etapas con elevación libre completa'],['Motor','4 cilindros diésel'],['Combustible','Diésel'],['Potencia','56.3 HP (45 kW)'],['Batería','100 Ah · 24 V'],['Horquillas','1,219 mm (48 in)'],['Desplazamiento lateral','Sí'],['Tracción','4x4'],['Llantas','23.5 / 70 - 16'],['Cabina','Cerrada'],['Dirección','Hidráulica'],['Arranque','Eléctrico'],['Dimensiones (L×An×Al)','4,850 × 1,850 × 2,530 mm'],['Año','2026'],['Condición','Nuevo']]},
-  {id:44,cat:'Montacargas',name:'Montacargas Eléctrico STARVOX CPD-20',qty:1,images:[],
+  {id:44,cat:'Montacargas',name:'Montacargas Eléctrico STARVOX CPD-20',qty:1,images:IMG_STARVOX,
     specs:[['Marca','STARVOX'],['Modelo','CPD-20'],['Tipo','Montacargas eléctrico contrapesado'],['Capacidad','2,000 kg (4,400 lb)'],['Alt. máx. elevación','2,972 mm (117 in)'],['Alt. mástil replegado','2,108 mm (83 in)'],['Mástil','2 etapas (dúplex)'],['Motor','Eléctrico'],['Combustible','Eléctrico'],['Potencia','4.0 kW'],['Batería','60 V'],['Horquillas','1,220 mm (48 in)'],['Desplazamiento lateral','No'],['Tracción','Eléctrica delantera'],['Llantas','6.60 – 10'],['Cabina','Abierta'],['Dirección','Hidráulica'],['Arranque','Eléctrico'],['Peso operativo','2,500 kg'],['Centro de carga','500 mm'],['Dimensiones (L×An×Al)','3,800 × 1,200 × 2,100 mm'],['Año','2026'],['Condición','Nuevo']]},
   {id:10,cat:'Maquinaria Pesada',name:'Cargador Frontal Heli HL933',qty:1,disp:false,images:IMG_HELI,
     specs:[['Modelo','HL933 II-CU'],['Motor','Cummins 6BT5.9-C130'],['Potencia','97 kW (130 HP)'],['Carga nominal','3,500 kg'],['Vel. máx.','38 km/h'],['Peso operativo','10,600 kg'],['Dimensiones','7,020 × 2,500 × 3,210 mm'],['Año','2021'],['Condición','Seminuevo']]},
@@ -616,7 +645,7 @@ const PRODUCTS=[
     specs:[['Marca','SDLOOL'],['Modelo','SL530T'],['Tipo','Minicargador compacto sobre orugas'],['Peso operativo','~1,000 kg'],['Motor','2 cilindros gasolina'],['Potencia','23 HP'],['Carga nominal','450 kg'],['Altura de elevación','2,000 mm'],['Acople rápido','Manual'],['Hidráulico auxiliar','Sí'],['Orugas','Orugas de caucho'],['Control','Joystick dual'],['Ruido','93 dB'],['Implemento','Cucharón'],['Dimensiones (L×An×Al)','2,745 × 1,050 × 1,630 mm'],['Año','2026'],['Condición','Nuevo']]},
   {id:41,cat:'Maquinaria Pesada',name:'Minicargador SDLOOL SSL1300 sobre Orugas',qty:2,images:IMG_SSL1300,video:'0gjw32_uP-k',
     specs:[['Marca','SDLOOL'],['Modelo','SSL1300'],['Tipo','Minicargador compacto sobre orugas'],['Peso operativo','1,200 kg'],['Motor','Yanmar diésel 3 cilindros'],['Potencia','27 HP (18.5 kW)'],['Carga nominal','500 kg'],['Altura de elevación','1,800 mm'],['Cucharón','991 mm (39 in)'],['Acople rápido','Manual'],['Hidráulico auxiliar','Sí'],['Orugas','Hule 178 mm (7 in)'],['Control','Joystick'],['Ruido','95 dB'],['Aditamentos compatibles','Garras para troncos o chatarra, ahoyadores, martillos hidráulicos y zanjadoras'],['Certificación','US EPA 2026'],['Dimensiones (L×An×Al)','2,691 × 1,240 × 1,548 mm'],['Unidades','2'],['Año','2026'],['Condición','Nuevo']]},
-  {id:42,cat:'Maquinaria Pesada',name:'Minicargador SDLANCH SSL60 sobre Orugas',qty:1,images:[],
+  {id:42,cat:'Maquinaria Pesada',name:'Minicargador SDLANCH SSL60 sobre Orugas',qty:1,images:IMG_SSL60,
     specs:[['Marca','SDLANCH'],['Modelo','SSL60'],['Tipo','Minicargador compacto sobre orugas'],['Peso operativo','590 kg'],['Motor','Rato EH420-CT, gasolina'],['Potencia','15 HP (8.8 kW)'],['Carga nominal','200 kg'],['Altura de elevación','2,210 mm'],['Cucharón','889 mm (35 in)'],['Acople rápido','Manual'],['Hidráulico auxiliar','Sí'],['Orugas','Hule 178 mm (7 in)'],['Control','Joystick'],['Ruido','90 – 95 dB'],['Aditamentos compatibles','Garras para troncos o chatarra, ahoyadores, martillos hidráulicos y zanjadoras'],['Certificación','US EPA 2026 y CE'],['Dimensiones (L×An×Al)','1,700 × 935 × 1,330 mm'],['Año','2026'],['Condición','Nuevo']]},
 
   {id:56,cat:'Maquinaria Pesada',name:'Excavadora Caterpillar 320D2',qty:1,images:IMG_CAT320D2,
@@ -629,7 +658,7 @@ const PRODUCTS=[
     specs:[['Marca','Furd'],['Modelo','FYL-6000NOR'],['Tipo','Rodillo vibratorio doble tambor'],['Capacidad','3 toneladas'],['Peso operativo','3,000 kg'],['Motor','3 cilindros diésel'],['Potencia','35.4 HP'],['Arranque','Eléctrico'],['Ancho de compactación','1,194 mm (47 in)'],['Diámetro de tambor','700 mm'],['Velocidad','0 – 10 km/h'],['Cap. de ascenso','40% / 30%'],['Transmisión','Hidráulica'],['Control de vibración','Hidráulica'],['Frecuencia de vibración','65 Hz'],['Amplitud nominal','0.5 mm'],['Fuerza de excitación','30 kN'],['Carga lineal estática','120/125 N/cm'],['Tanque de agua','40 L'],['Tanque hidráulico','48 L'],['Estación del operador','Abierta'],['Sistema de aspersión','Sí'],['Dimensiones (L×An×Al)','2,800 × 1,515 × 2,050 mm'],['Año','2026'],['Condición','Nuevo']]},
   {id:32,cat:'Maquinaria Pesada',name:'Rodillo Doble Furd FYL-3000PRO Diésel 1.5 ton',qty:1,images:IMG_FURD3000,
     specs:[['Marca','Furd'],['Modelo','FYL-3000PRO (serie FYL-900)'],['Tipo','Rodillo vibratorio doble tambor'],['Capacidad','1.5 toneladas'],['Peso operativo','1,500 kg'],['Motor','Changfa diésel 1 cilindro'],['Potencia','13 HP'],['Arranque','Eléctrico'],['Ancho de compactación','889 mm (35 in)'],['Diámetro de tambor','560 mm'],['Velocidad','0 – 8 km/h'],['Cap. de ascenso','30%'],['Transmisión','Hidráulica'],['Control de vibración','Hidráulica'],['Frecuencia de vibración','65 Hz'],['Amplitud nominal','0.6 mm'],['Fuerza de excitación','30 kN'],['Carga lineal estática','55 / 70 N/cm'],['Tanque de agua','100 L'],['Tanque hidráulico','60 L'],['Estación del operador','Abierta'],['Sistema de aspersión','Sí'],['Dimensiones (L×An×Al)','2,125 × 985 × 2,325 mm'],['Año','2026'],['Condición','Nuevo']]},
-  {id:33,cat:'Maquinaria Pesada',name:'Rodillo Doble Furd FYL-3000PRO Gasolina 1.5 ton',qty:1,images:[],
+  {id:33,cat:'Maquinaria Pesada',name:'Rodillo Doble Furd FYL-3000PRO Gasolina 1.5 ton',qty:1,images:IMG_FURD3000G,
     specs:[['Marca','Furd'],['Modelo','FYL-3000PRO'],['Tipo','Rodillo vibratorio doble tambor'],['Capacidad','1.5 toneladas'],['Peso operativo','1,500 kg'],['Motor','2 cilindros gasolina'],['Potencia','20 HP'],['Arranque','Eléctrico'],['Ancho de compactación','889 mm (35 in)'],['Diámetro de tambor','560 mm'],['Velocidad','0 – 8 km/h'],['Cap. de ascenso','30%'],['Transmisión','Hidráulica'],['Control de vibración','Hidráulica'],['Frecuencia de vibración','70 Hz'],['Amplitud nominal','0.6 mm'],['Fuerza de excitación','30 kN'],['Carga lineal estática','73.5 N/cm'],['Tanque de agua','100 L'],['Tanque hidráulico','60 L'],['Estación del operador','Abierta'],['Sistema de aspersión','Sí'],['Dimensiones (L×An×Al)','2,100 × 1,100 × 1,600 mm'],['Año','2026'],['Condición','Nuevo']]},
   {id:34,cat:'Maquinaria Pesada',name:'Rodillo Doble Furd FYL-2800PRO Gasolina 1 ton',qty:1,images:IMG_FURD2800,video:'Bnc16f4JA5o',
     specs:[['Marca','Furd'],['Modelo','FYL-2800PRO'],['Tipo','Rodillo vibratorio doble tambor'],['Capacidad','1 tonelada'],['Peso operativo','1,000 kg'],['Motor','1 cilindro gasolina'],['Potencia','18 HP'],['Arranque','Eléctrico'],['Ancho de compactación','787 mm (31 in)'],['Diámetro de tambor','540 mm'],['Velocidad','0 – 6.5 km/h'],['Cap. de ascenso','35%'],['Transmisión','Hidráulica'],['Control de vibración','Embrague electromagnético'],['Frecuencia de vibración','70 Hz'],['Amplitud nominal','0.5 mm'],['Fuerza de excitación','28 kN'],['Carga lineal estática','55 N/cm'],['Tanque de agua','60 L'],['Tanque hidráulico','19 L'],['Estación del operador','Abierta'],['Sistema de aspersión','Sí'],['Medidas de empaque (L×An×Al)','2,100 × 1,000 × 1,650 mm'],['Año','2026'],['Condición','Nuevo']]},
@@ -647,7 +676,7 @@ const PRODUCTS=[
     specs:[['Marca','SDLANCH'],['Modelo','ME20'],['Tipo','Miniexcavadora sobre orugas'],['Peso operativo','1,200 kg'],['Motor','Diésel Yanmar 3TNV74F-SP'],['Potencia','23 HP'],['Cilindrada','0.993 L'],['Certificación','US EPA 2026'],['Prof. máx. de excavación','1,720 mm (67 in)'],['Radio máx. excavación (suelo)','3,030 mm'],['Altura máx. de excavación','2,490 mm'],['Altura máx. de descarga','1,745 mm'],['Pluma','Oscilante (swing boom)'],['Brazo','787 mm (2 ft 7 in)'],['Cucharón (ancho)','381 mm (15 in)'],['Cap. cucharón','0.030 m³'],['Pulgar','Hidráulico'],['Hoja topadora','Sí'],['Hidráulico auxiliar','Sí'],['Orugas','178 mm (7 in)'],['Vel. de desplazamiento','2.2 km/h'],['Control','Pilotos mecánicos (joystick)'],['Incluye','Pulgar hidráulico'],['Opcional (extra)','Lote de accesorios GIYI GYA-8'],['Dimensiones (L×An×Al)','2,925 × 1,100 × 2,422 mm'],['Año','2026'],['Condición','Nuevo']]},
   {id:37,cat:'Maquinaria Pesada',name:'Miniexcavadora Vicsec 18',qty:1,images:IMG_VC18,
     specs:[['Marca','Vicsec'],['Modelo','Vicsec 18'],['Tipo','Miniexcavadora sobre orugas'],['Peso operativo','1,800 kg'],['Motor','Diésel 3 cilindros'],['Potencia','23 HP'],['Cilindrada','0.997 L'],['Certificación','CE'],['Prof. máx. de excavación','1,700 mm (67 in)'],['Radio máx. excavación (suelo)','2,950 mm'],['Altura máx. de excavación','3,050 mm'],['Altura máx. de descarga','2,100 mm'],['Pluma','Oscilante (swing boom)'],['Brazo','864 mm (2 ft 10 in)'],['Cucharón (ancho)','432 mm (17 in)'],['Cap. cucharón','0.020 m³ / 45 kg'],['Pulgar','Manual'],['Hoja topadora','Sí'],['Hidráulico auxiliar','Sí'],['Orugas','178 mm (7 in)'],['Vel. de desplazamiento','1.7 km/h'],['Control','Piloto Hidráulico (joystick)'],['Incluye','Pulgar mecanico (bote cucharón)'],['Opcional (extra)','Lote de accesorios GIYI GYA-8'],['Dimensiones (L×An×Al)','3,150 × 1,100 × 2,350 mm'],['Año','2026'],['Condición','Nuevo']]},
-  {id:43,cat:'Maquinaria Pesada',name:'Miniexcavadora Vicsec 13CD',qty:1,images:[],video:'VAwdPH0Po1Y',
+  {id:43,cat:'Maquinaria Pesada',name:'Miniexcavadora Vicsec 13CD',qty:1,images:IMG_VC13CD,video:'VAwdPH0Po1Y',
     specs:[['Marca','Vicsec'],['Modelo','13CD'],['Tipo','Miniexcavadora sobre orugas'],['Peso operativo','1,000 kg'],['Motor','Diésel'],['Potencia','9.4 HP (7 kW)'],['Cilindrada','0.5 L'],['Certificación','CE 2026'],['Prof. máx. de excavación','1,693 mm'],['Radio máx. excavación (suelo)','2,800 mm'],['Altura máx. de excavación','2,450 mm'],['Altura máx. de descarga','1,710 mm'],['Pluma','Oscilante (swing boom)'],['Brazo','787 mm (2 ft 7 in)'],['Cucharón (ancho)','356 mm (14 in)'],['Cap. cucharón','0.05 m³ / 30 kg'],['Pulgar','Manual'],['Hoja topadora','Sí'],['Hidráulico auxiliar','Sí'],['Orugas','Hule 178 mm (7 in)'],['Vel. de desplazamiento','1.5 km/h'],['Control','Joystick'],['Incluye','Cucharón estándar, pulgar manual y línea hidráulica'],['Opcional (extra)','Lote de accesorios GIYI GYA-8'],['Cabina','Cerrada'],['Año','2026'],['Condición','Nuevo']]},
   {id:38,cat:'Aditamentos',name:'Zanjadora GIYI D39 para Minicargador',qty:1,images:IMG_D39,video:'jGwba8EiMqo',
     specs:[['Marca','GIYI'],['Modelo','D39'],['Tipo','Zanjadora (trencher) para minicargador'],['Peso operativo','206 kg'],['Acople rápido','Hidráulica'],['Ruido','80 dB'],['Ancho de zanja','203 mm (8 in)'],['Profundidad máxima de zanjado','990 mm (39 in)'],['Montaje','Minicargador / skid steer'],['Dimensiones (L×An×Al)','1,700 × 670 × 750 mm'],['Año','2026'],['Condición','Nuevo']]},
@@ -657,7 +686,7 @@ const PRODUCTS=[
     specs:[['Marca','GIYI'],['Modelo','CLG72'],['Tipo','Garra curva para troncos (curved log grabber)'],['Compatibilidad','Minicargadores'],['Montaje','Hidráulico / enganche de minicargador'],['Peso','360 kg'],['Flujo de aceite','38 – 83 L/min'],['Presión de trabajo','100 – 220 bar'],['Longitud','1,020 mm'],['Conexiones','Hidráulica'],['Ancho de trabajo','1,829 mm (72 in)'],['Dimensiones (L×An×Al)','1,020 × 850 × 1,820 mm'],['Año','2026'],['Condición','Nuevo']]},
   {id:15,cat:'Aditamentos',name:'Martillo Hidráulico SDCH750',qty:1,images:IMG_MART750,video:'ir0hVp-Qf4c',
     specs:[['Marca','SDCH'],['Modelo','SDCH750'],['Tipo','Hidráulico'],['Compatibilidad','Excavadoras de 6 a 8 ton'],['Peso','420 kg'],['Diámetro de cincel','75 mm'],['Flujo de aceite','35 – 65 L/min'],['Presión de trabajo','110 – 160 bar'],['Golpes por minuto','500 – 700'],['Longitud','1,120 mm'],['Conexiones','Línea de presión: 110 - 160 bar; Línea de retorno'],['Dimensiones (L×An×Al)','1,420 × 440 × 1,300 mm'],['Año','2025'],['Condición','Nuevo']]},
-  {id:16,cat:'Aditamentos',name:'Martillo Hidráulico SDCH450',qty:2,images:[],video:'vKS0YYvyiDU',
+  {id:16,cat:'Aditamentos',name:'Martillo Hidráulico SDCH450',qty:2,images:IMG_SDCH450,video:'vKS0YYvyiDU',
     specs:[['Marca','SDCH'],['Modelo','SDCH450'],['Tipo','Hidráulico'],['Compatibilidad','Excavadoras 1.2 a 3.0 ton'],['Peso','130 kg'],['Diámetro de cincel','45 mm'],['Flujo de aceite','20 – 30 L/min'],['Presión de trabajo','90 – 120 bar'],['Golpes por minuto','700 – 1200'],['Longitud','900 mm'],['Conexiones','Puerto de entrada / retorno / Sentido de flujo unidireccional'],['Diámetro de manguera','12.7 mm'],['Unidades','2'],['Año','2025'],['Condición','Nuevo']]},
   {id:53,cat:'Aditamentos',name:'Martillo Hidráulico JW400S',qty:2,images:IMG_JW400S,video:'eofUsY7oz-Q',
     specs:[['Marca','JW'],['Modelo','JW400S'],['Tipo','Hidráulico'],['Compatibilidad','Miniexcavadoras / minicargadores'],['Montaje','Hidráulica'],['Peso','130 kg'],['Diámetro de cincel','40 mm'],['Flujo de aceite','17 – 32 L/min'],['Presión de trabajo','92 – 122 bar'],['Golpes por minuto','800 – 1200'],['Longitud','1,230 mm'],['Conexiones','Entrada / salida hidráulica y carga de nitrógeno'],['Dimensiones (L×An×Al)','1,000 × 280 × 300 mm'],['Unidades','2'],['Año','2026'],['Condición','Nuevo']]},
@@ -669,6 +698,19 @@ const PRODUCTS=[
 
 const ICONS={'Generadores':'⚡','Montacargas':'🏗️','Maquinaria Pesada':'🚜','Aditamentos':'🔨','Iluminación':'💡','Paquetes':'📦'};
 let currentCategory='Todos',currentSearch='',onlyAvailable=false;
+// ===== Buen Fin 2026 =====
+// Promoción por ID (sale de «Promoción Buen Fin 2026.xlsx»): 'ambas' = 10% contado o 3 MSI; 'msi' = solo 3 MSI
+const BUEN_FIN={desde:'2026-11-12T00:00:00-06:00',hasta:'2026-11-20T23:59:59-06:00',
+  promo:{37:'ambas',43:'ambas',20:'ambas',56:'ambas',40:'ambas',23:'ambas',41:'ambas',42:'ambas',11:'msi',29:'ambas',34:'ambas',33:'ambas',32:'ambas',31:'ambas',30:'ambas',7:'ambas',44:'ambas',27:'ambas',6:'msi',38:'ambas',17:'ambas',16:'ambas',54:'ambas',39:'ambas',15:'ambas',18:'ambas'}};
+const BF_ACTIVO=(function(){
+  try{if(new URLSearchParams(location.search).get('bf')==='1')return true;}catch(e){}
+  const t=Date.now();return t>=Date.parse(BUEN_FIN.desde)&&t<=Date.parse(BUEN_FIN.hasta);
+})();
+if(BF_ACTIVO)document.documentElement.classList.add('bf-on');
+let bfFiltro=false;
+function bfPromo(p){return BF_ACTIVO&&p.disp!==false?BUEN_FIN.promo[p.id]||null:null;}
+function bfTexto(t){return t==='ambas'?'<b>10%</b> contado o <b>3 MSI</b>':'<b>3 MSI</b>';}
+function bfSoloPromo(){bfFiltro=!bfFiltro;const b=document.querySelector('#bfBanner button');if(b)b.textContent=bfFiltro?'Ver todos los equipos':'Ver equipos en promoción';renderProducts();document.querySelector('.controls').scrollIntoView({behavior:'smooth'});}
 const OCULTAR_NO_DISPONIBLES=true; // true = los equipos con disp:false no se muestran en la página
 function setCategory(cat){
   currentCategory=cat;
@@ -694,12 +736,13 @@ function renderProducts(){
     const ms=!currentSearch||p.name.toLowerCase().includes(currentSearch)||p.cat.toLowerCase().includes(currentSearch)||
       p.specs.some(s=>s[1].toLowerCase().includes(currentSearch))||
       (p.includes&&p.includes.some(i=>i.toLowerCase().includes(currentSearch)));
-    return mc&&ms&&!(OCULTAR_NO_DISPONIBLES&&p.disp===false);
+    return mc&&ms&&!(OCULTAR_NO_DISPONIBLES&&p.disp===false)&&(!bfFiltro||bfPromo(p));
   });
   // orden: primero con foto, luego sin foto (suben solos al agregarles fotos); dentro de cada grupo, rodillos primero
   const sinFoto=p=>(p.images&&p.images.length)||p.video?0:1;
   const primero=p=>/rodillo/i.test(p.name)?0:1;
-  const disp=base.filter(p=>p.disp!==false).sort((a,b)=>sinFoto(a)-sinFoto(b)||primero(a)-primero(b));   // disponibles
+  const conBF=p=>bfPromo(p)?0:1;
+  const disp=base.filter(p=>p.disp!==false).sort((a,b)=>sinFoto(a)-sinFoto(b)||conBF(a)-conBF(b)||primero(a)-primero(b));   // disponibles
   const nd=base.filter(p=>p.disp===false);     // no disponibles
   document.getElementById('counter').textContent=base.length+' equipo'+(base.length!==1?'s':'');
   let html=disp.map(p=>cardHTML(p)).join('');
@@ -717,7 +760,7 @@ function cardHTML(p){
            :p.video?`<img src="https://i.ytimg.com/vi/${p.video}/hqdefault.jpg" alt="${p.name}" loading="lazy" decoding="async">${vtag}`
            :`<div class="thumb-ph">${ICONS[p.cat]||'📦'}</div>`;
   return `<div class="card${p.isPaquete?' paquete':''}${disp?'':' nd'}" role="button" tabindex="0" onclick="openDetail(${p.id})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDetail(${p.id})}">
-    <div class="thumb">${img}${disp?'':'<span class="thumb-nd">No disponible</span>'}</div>
+    <div class="thumb">${img}${disp?'':'<span class="thumb-nd">No disponible</span>'}${bfPromo(p)?`<span class="thumb-bf"><img src="img/buen-fin.webp" alt="Buen Fin">${bfTexto(bfPromo(p))}</span>`:''}</div>
     <div class="card-title">
       ${p.isPaquete?'<span class="paquete-badge">📦 Paquete</span>':''}
       <div class="card-cat">${p.cat}</div>
@@ -726,7 +769,7 @@ function cardHTML(p){
   </div>`;
 }
 function waLink(p){
-  return 'https://wa.me/'+CONTACTO.tel+'?text='+encodeURIComponent('Hola, me interesa el '+p.name+' (Ref. '+p.id+'). ¿Me pueden dar precio y disponibilidad?');
+  return 'https://wa.me/'+CONTACTO.tel+'?text='+encodeURIComponent('Hola, me interesa el '+p.name+' (Ref. '+p.id+')'+(bfPromo(p)?' con la promoción del Buen Fin':'')+'. ¿Me pueden dar precio y disponibilidad?');
 }
 function shareProduct(p){
   medir('share',{item_id:'AMA-'+p.id,item_name:p.name,method:navigator.share?'nativo':'whatsapp'});
@@ -747,6 +790,8 @@ function openDetail(id,push){
   const av=document.getElementById('detAvail'); av.textContent=disp?'Disponible':'No disponible'; av.className='badge-avail'+(disp?'':' nd');
   document.getElementById('detSpecs').innerHTML=p.specs.map(s=>`<li><span>${s[0]}</span><span>${s[1]}</span></li>`).join('');
   document.getElementById('detIncludes').innerHTML=p.includes?`<div class="includes-list"><div class="includes-title">Incluye</div>${p.includes.map(i=>`<div class="includes-item"><span>${i}</span></div>`).join('')}</div>`:'';
+  const bf=bfPromo(p);
+  document.getElementById('detBF').innerHTML=bf?`<div class="det-bf"><img src="img/buen-fin.webp" alt="Buen Fin"><div class="t"><strong>Buen Fin · del 12 al 20 de noviembre</strong><br>${bf==='ambas'?'<strong>10% de descuento</strong> pagando de contado <b>o</b> <strong>3 meses sin intereses</strong> con tarjetas de crédito participantes.':'<strong>3 meses sin intereses</strong> con tarjetas de crédito participantes.'}<small>MSI con Citibanamex, Inbursa, Nu, Santander, Falabella, Banco Plata, DiDi y Stori. No aplica con tarjetas de débito. Promociones no acumulables. Válido del 12 al 20 de noviembre de 2026 o hasta agotar existencias. Precios con IVA incluido.</small></div></div>`:'';
   document.getElementById('detWa').href=waLink(p);
   document.getElementById('detRef').innerHTML='Ref. '+p.id+' · Envíos a toda la República'+(urlEquipo(p)?' · <a href="'+urlEquipo(p)+'">Ver página del equipo ↗</a>':'');
   const imgs=p.images||[];

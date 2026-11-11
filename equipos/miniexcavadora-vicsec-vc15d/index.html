@@ -50,6 +50,7 @@ a{color:inherit}
 .migas{font-size:13px;color:#999;margin:4px 0 12px}.migas a{color:#ccc}
 h1{font-size:clamp(22px,4vw,30px);line-height:1.2;color:#fff}
 .sub{color:#cc2222;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;margin:6px 0 16px}
+.bfp{display:none;gap:12px;align-items:flex-start;background:#2a1414;border:1px solid #cc2222;border-radius:10px;padding:12px;margin-bottom:14px;font-size:15px;line-height:1.4}.bf-on .bfp{display:flex}.bfp img{width:60px;height:auto;flex-shrink:0}.bfp b{color:#ffcd00}.bfp b.am{color:#ffcd00}.bfp small{display:block;color:#aaa;font-size:12px;margin-top:5px}
 .vendido{background:#3a1515;border:1px solid #cc2222;border-radius:8px;padding:12px;margin-bottom:14px;display:none}
 .grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;align-items:start}
 .g-main{background:#0b0b0b;border-radius:10px;overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center}
@@ -89,6 +90,7 @@ footer a{color:#ddd;margin:0 6px}
   <nav class="migas"><a href="/">Catálogo</a> › Maquinaria Pesada › Miniexcavadora Vicsec VC15D</nav>
   <h1>Miniexcavadora Vicsec VC15D</h1>
   <div class="sub">Ref. 20 · Nuevo · Maquinaria Pesada</div>
+  <div class="bfp" id="bfp"><img src="/img/buen-fin.webp" alt="Buen Fin"><div><b class="am">Buen Fin · del 12 al 20 de noviembre</b><br><b>10% de descuento</b> pagando de contado <b>o 3 meses sin intereses</b> con tarjetas de crédito participantes.<small>MSI con Citibanamex, Inbursa, Nu, Santander, Falabella, Banco Plata, DiDi y Stori. No aplica con tarjetas de débito. Promociones no acumulables. Válido del 12 al 20 de noviembre de 2026 o hasta agotar existencias. Precios con IVA incluido.</small></div></div>
   <div class="vendido" id="vendido">Este equipo ya se vendió. <a href="/">Ver equipos disponibles</a> o escríbenos: conseguimos uno similar.</div>
   <div class="grid">
     <div>
@@ -121,6 +123,7 @@ footer a{color:#ddd;margin:0 6px}
 const EQ={"id": 20, "name": "Miniexcavadora Vicsec VC15D", "cat": "Maquinaria Pesada", "vend": {"mauricio": {"tel": "527971036762", "display": "797 103 6762", "nombre": "Mauricio Rojas"}}, "def": {"tel": "524422004002", "display": "(442) 200 4002", "nombre": "AMA Maquinaria"}};
 const CONTACTO=(function(){try{const c=(new URLSearchParams(location.search).get('v')||'').toLowerCase().trim();if(c&&EQ.vend[c])return Object.assign({code:c},EQ.vend[c]);}catch(e){}return EQ.def;})();
 function medir(ev,d){try{gtag('event',ev,Object.assign({vendedor:CONTACTO.code||'principal'},d||{}));}catch(e){} metaEvento(ev,d);}
+(function(){let on=false;try{on=new URLSearchParams(location.search).get('bf')==='1';}catch(e){}const t=Date.now();if(on||(t>=Date.parse('2026-11-12T00:00:00-06:00')&&t<=Date.parse('2026-11-20T23:59:59-06:00')))document.documentElement.classList.add('bf-on');})();
 const ITEM={item_id:'AMA-'+EQ.id,item_name:EQ.name,item_category:EQ.cat};
 document.querySelectorAll('a[href*="wa.me/524422004002"]').forEach(a=>a.href=a.href.replace('524422004002',CONTACTO.tel));
 document.querySelectorAll('a[href^="tel:"]').forEach(a=>a.href='tel:+'+CONTACTO.tel);
