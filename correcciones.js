@@ -5,7 +5,9 @@ window.AMA_CORRECCIONES = {
   "Carga nominal": "1,000 kg",
   "Dimensiones (L×An×Al)": "5,900 × 2,000 × 2,850 mm",
   "Motor": "490Y4",
-  "Potencia": "56.3 HP (45 kW)"
+  "Potencia": "56.3 HP (45 kW)",
+  "_disp": false,
+  "_vendido": "antes del 2026-11-23"
  },
  "28": {
   "Peso operativo": "900 kg aprox.",
@@ -40,7 +42,9 @@ window.AMA_CORRECCIONES = {
  },
  "34": {
   "Dimensiones (L×An×Al)": null,
-  "Medidas de empaque (L×An×Al)": "2,100 × 1,000 × 1,650 mm"
+  "Medidas de empaque (L×An×Al)": "2,100 × 1,000 × 1,650 mm",
+  "_disp": false,
+  "_vendido": "antes del 2026-11-23"
  },
  "35": {
   "Dimensiones (L×An×Al)": null,
@@ -105,7 +109,9 @@ window.AMA_CORRECCIONES = {
  },
  "18": {
   "Modelo": "PL6000K",
-  "Tipo": "Mástil de iluminación"
+  "Tipo": "Mástil de iluminación",
+  "_disp": false,
+  "_vendido": "2026-11-14 (las 2 torres PL6000K, series P1212200010 y P1212260015, a Laura Marcela Huerta Ruiz)"
  },
  "17": {
   "Tipo": "Kit de mangueras para martillo hidráulico",
@@ -161,5 +167,14 @@ window.AMA_CORRECCIONES = {
   "Incluye": "Cucharón estándar, pulgar manual y línea hidráulica",
   "Opcional (extra)": "Lote de accesorios GIYI GYA-8",
   "Dimensiones (L×An×Al)": null
+ },
+ "51": {
+  "Marca": "Caterpillar",
+  "Tipo": "Excavadora hidráulica sobre orugas (para partes)",
+  "Condición": "Usado, para partes",
+  "Unidades": "2",
+  "Notas": "Se venden para refacciones: una inoperable y otra solo para partes. Pregunta por la pieza que necesitas (motor, bombas, motor de giro, cabina, pluma, brazo, orugas, radiador, cucharón).",
+  "_qty": 2,
+  "_comentario": "2026-11-18: una sola ficha para las 2 Cat 349D L (51 inoperable y 52 solo partes), a pedido del usuario. La fila 52 de la hoja no se publica (no tiene producto en index.html)."
  }
 };
